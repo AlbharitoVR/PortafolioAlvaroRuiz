@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Página de ejemplo - Unity WebGL</title>
+<style>
+
+  /* ============================================
+     1) FOTO DE FONDO PARA TODA LA PÁGINA
+     ============================================ */
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    color: #f4f1ea;
+
+    /* Cambia la ruta por la de tu imagen (relativa o URL) */
+    background-image: url('fondo.jpg');
+    background-size: cover;        /* la imagen cubre todo el ancho/alto */
+    background-position: center;   /* centra la imagen */
+    background-repeat: no-repeat;  /* evita que se repita en mosaico */
+    background-attachment: fixed;  /* el fondo no se mueve al hacer scroll */
+
+    position: relative; /* necesario para que el brillo del mouse se ancle aquí */
+    overflow-x: hidden;
+  }
+
+  /* Capa oscura opcional encima del fondo, para que el texto se lea mejor */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 0;
+  }
+
+  /* Todo el contenido va por encima de la capa oscura */
+  .contenido {
+    position: relative;
+    z-index: 1;
+    padding: 40px;
+  }
+
+  /* ============================================
+     2) POSICIÓN DE LAS PALABRAS / TEXTO
+     ============================================ */
+  .titulo {
+    /* position: relative te permite moverlo desde su lugar original
+       usando top/left/right/bottom sin sacarlo del flujo normal */
+    position: relative;
+    top: 20px;
+    left: 10px;
+
+    font-size: 2.5rem;
+    text-align: center; /* left | right | center | justify */
+  }
+
+  .texto-flotante {
+    /* position: absolute lo saca del flujo normal y lo ubica
+       respecto al primer ancestro con position != static
+       (en este caso, .contenido o body) */
+    position: absolute;
+    top: 120px;
+    right: 40px;
+    max-width: 250px;
+  }
+
+  /* Otra forma común: centrar texto con flexbox */
+  .caja-centrada {
+    display: flex;
+    justify-content: center; /* eje horizontal */
+    align-items: center;     /* eje vertical */
+    text-align: center;
+    min-height: 150px;
+  }
+
+  /* ============================================
+     3) IMÁGENES CON EFECTO HOVER Y PANTALLA COMPLETA
+     ============================================ */
+  .galeria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px auto;
+  }
+
+  .imagen-proyecto {
+    max-width: 260px;
+    width: 100%;
+    height: auto;      /* mantiene la proporción */
+    border-radius: 8px;
+    display: block;
+    cursor: pointer;    /* avisa que se puede hacer clic */
+
+    /* transición suave para el efecto hover */
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  }
+
+  .imagen-proyecto:hover {
+    transform: scale(1.05);                     /* se agranda un poco */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);    /* sombra más marcada */
+    filter: brightness(1.1);                      /* se ilumina un poco */
+  }
+
+  /* Fondo oscuro de pantalla completa que aparece al hacer clic */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;              /* oculto por defecto, se activa con JS */
+    align-items: center;
+    justify-content: center;
+    z-index: 10;                /* por encima de todo, incluso del brillo */
+    cursor: zoom-out;
+  }
+
+  .lightbox.activo {
+    display: flex;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+  }
+
+  /* ============================================
+     4) EFECTO DE BRILLO QUE SIGUE AL MOUSE
+     ============================================ */
+  .brillo-mouse {
+    position: fixed;
+    inset: 0;
+    pointer-events: none; /* para que no bloquee los clics */
+    z-index: 2;
+    background: radial-gradient(
+      circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.15),
+      transparent 80%
+    );
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- Capa que dibuja el brillo; su posición se actualiza con JS -->
+  <div class="brillo-mouse"></div>
+
+  <div class="contenido">
+
+    <h1 class="titulo">Título del proyecto</h1>
+
+    <p class="texto-flotante">
+      Este texto está posicionado de forma absoluta, flotando sobre el fondo.
+    </p>
+
+    <div class="caja-centrada">
+      <p>Texto centrado con flexbox</p>
+    </div>
+
+    <!-- GALERÍA DE IMÁGENES: cada una reacciona al pasar el mouse
+         y abre pantalla completa al hacer clic -->
+    <div class="galeria">
+      <img class="imagen-proyecto" src="portada-libro1.jpg" alt="Portada del libro 1">
+      <img class="imagen-proyecto" src="portada-libro2.jpg" alt="Portada del libro 2">
+      <img class="imagen-proyecto" src="portada-libro3.jpg" alt="Portada del libro 3">
+    </div>
+
+  </div>
+
+  <!-- Contenedor de pantalla completa (lightbox), vacío hasta que se hace clic -->
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="Imagen ampliada">
+  </div>
+
+  <script>
+    // Actualiza la posición del brillo según el mouse
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
+      document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
+    });
+
+    // --- Lógica de la pantalla completa (lightbox) ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    // Por cada imagen de la galería, al hacer clic se abre en grande
+    document.querySelectorAll('.imagen-proyecto').forEach((img) => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;       // copia la misma imagen al lightbox
+        lightbox.classList.add('activo'); // lo muestra
+      });
+    });
+
+    // Al hacer clic en cualquier parte del fondo oscuro, se cierra
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('activo');
+    });
+  </script>
+
+</body>
+</html>
