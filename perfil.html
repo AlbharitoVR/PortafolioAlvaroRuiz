@@ -91,7 +91,7 @@
   /* ============================================
      FOTO DE PERFIL EDITABLE
      ============================================ */
-  .foto-perfil-wrapper {
+  .foto-perfil {
     position: relative;
     width: 200px;
     height: 200px;
@@ -105,21 +105,6 @@
     border-radius: 50%;
     border: 3px solid #ffd27f;
     box-shadow: 0 0 20px rgba(255, 210, 127, 0.6); /* mismo contorno iluminado que las tarjetas */
-  }
-
-  /* Botón circular pequeño sobre la foto para cambiarla */
-  .btn-cambiar-foto {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background: #ffd27f;
-    color: #1a1a1a;
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    font-size: 1rem;
   }
 
   /* El input de archivo real queda oculto; el botón de arriba lo activa */
@@ -172,13 +157,13 @@
     <!-- FOTO DE PERFIL: al hacer clic en el botón dorado, se abre el explorador
          de archivos y la imagen elegida se muestra al instante -->
     <div class="foto-perfil">
-      <img id="foto-perfil" src="Portafolio_Imagenes/Yisus_jpg" alt="Foto de perfil">
+      <img id="foto-perfil" src="Portafolio_Imagenes/Yisus_jpg.jpg" alt="Foto de perfil">
     </div>
 
     <!-- DESCRIPCIÓN: contenteditable="true" permite hacer clic y escribir
          directamente encima del texto, como si fuera un campo de edición -->
     <p class="descripcion" contenteditable="true">
-      Estudiante de 5to Año de Ing. en Realidad virtual y Diseño de juegos digitales, En la UBO
+      Estudiante de 5to Año de Ing. en Realidad virtual y Diseño de juegos digitales, En la UBO.
       Un apasionado por el Modelado 3D, Escenografia, Fotografia, hacer contenido y todo lo referente a ello.
     </p>
 
