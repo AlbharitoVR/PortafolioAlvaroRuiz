@@ -286,6 +286,15 @@
     background: rgba(255, 210, 127, 0.18);
     border-radius: 50%;
     font-family: 'Agbalumo', cursive; /* para que la "in" de LinkedIn se vea prolija */
+    overflow: hidden; /* recorta cualquier logo que se pase del círculo */
+  }
+
+  /* Si dentro del ícono pones un logo (img) en vez de un emoji o texto,
+     estas reglas hacen que se ajuste al círculo en vez de verse gigante */
+  .icono-contacto img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
   }
 
   /* ============================================
@@ -384,33 +393,27 @@
          PLATAFORMAS DE TRABAJO
          ============================================ -->
     <div class="caja-centrada">
-      <p>Contactame</p>
+      <p>Plataformas de trabajo</p>
     </div>
 
     <div class="plataformas">
 
       <div class="plataforma-card">
-        <img src="Portafolio_Imagenes/Unity_png.png" alt="Logo de Unity">
+        <img src="Portafolio_Imagenes/logo-unity.png" alt="Logo de Unity">
         <h3>Unity</h3>
         <p>Motor principal para el desarrollo de experiencias interactivas y videojuegos.</p>
       </div>
 
       <div class="plataforma-card">
-        <img src="Portafolio_Imagenes/Blender_logo_png.png" alt="Logo de Blender">
+        <img src="Portafolio_Imagenes/logo-blender.png" alt="Logo de Blender">
         <h3>Blender</h3>
         <p>Modelado, texturizado y animación 3D de personajes y escenarios.</p>
       </div>
 
       <div class="plataforma-card">
-        <img src="Portafolio_Imagenes/photoshop_png.png" alt="Logo de Photoshop">
+        <img src="Portafolio_Imagenes/logo-photoshop.png" alt="Logo de Photoshop">
         <h3>Photoshop</h3>
-        <p>Edición de imagen, composición de imágenes y diseño gráfico.</p>
-      </div>
-
-       <div class="plataforma-card">
-        <img src="Portafolio_Imagenes/Csharp_png.png" alt="Logo de C#">
-        <h3>C#</h3>
-        <p>Programacion basica en C#.</p>
+        <p>Edición de texturas, composición de imágenes y diseño gráfico.</p>
       </div>
 
     </div>
@@ -428,23 +431,23 @@
     <div class="contactos-grid">
 
       <a class="contacto-card" href="mailto:Alvaroruizflores25@gmail.com">
-        <img src="Portafolio_Imagenes/Gmail_png.png" alt="Logo de Gmail">
+        <span class="icono-contacto">✉</span>
         <span>Correo</span>
       </a>
 
       <!-- Reemplaza el enlace de abajo por la URL real de tu perfil de LinkedIn -->
-      <a class="contacto-card" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener">
-        <img src="Portafolio_Imagenes/LinkedIn_png.png" alt="Logo de LinkedIn">
+      <a class="contacto-card" href="https://www.linkedin.com/in/tu-usuario" target="_blank" rel="noopener">
+        <span class="icono-contacto">in</span>
         <span>LinkedIn</span>
       </a>
 
       <a class="contacto-card" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener">
-        <img src="Portafolio_Imagenes/Insta_png.png" alt="Logo de Instagram">
+        <span class="icono-contacto">📷</span>
         <span>Instagram</span>
       </a>
 
       <a class="contacto-card" href="https://wa.me/56962649569" target="_blank" rel="noopener">
-        <img src="Portafolio_Imagenes/whatsapp_png.png" alt="Logo de Whatsapp">
+        <span class="icono-contacto">📱</span>
         <span>+56 9 6264 9569</span>
       </a>
 
