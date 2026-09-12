@@ -88,23 +88,11 @@
     margin-bottom: 30px;
   }
 
-  /* ============================================
-     FOTO DE PERFIL EDITABLE
-     ============================================ */
   .foto-perfil {
     position: relative;
     width: 200px;
     height: 200px;
     margin-bottom: 20px;
-  }
-
-  #foto-perfil {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #ffd27f;
-    box-shadow: 0 0 20px rgba(255, 210, 127, 0.6); /* mismo contorno iluminado que las tarjetas */
   }
 
   /* El input de archivo real queda oculto; el botón de arriba lo activa */
@@ -157,7 +145,7 @@
     <!-- FOTO DE PERFIL: al hacer clic en el botón dorado, se abre el explorador
          de archivos y la imagen elegida se muestra al instante -->
     <div class="foto-perfil">
-      <img id="foto-perfil" src="Portafolio_Imagenes/Yisus_jpg.jpg" alt="Foto de perfil">
+      <img img class="Foto Perfil" src="Portafolio_Imagenes/Yisus_jpg.jpg" alt="Foto de Perfil">
     </div>
 
     <!-- DESCRIPCIÓN: contenteditable="true" permite hacer clic y escribir
@@ -175,24 +163,6 @@
 
   </div>
 
-  <script>
-    // Al presionar el botón con el lápiz, se abre el selector de archivos
-    const btnCambiarFoto = document.getElementById('btn-cambiar-foto');
-    const inputFoto = document.getElementById('input-foto');
-    const fotoPerfil = document.getElementById('foto-perfil');
-
-    btnCambiarFoto.addEventListener('click', () => {
-      inputFoto.click();
-    });
-
-    // Cuando se elige una imagen nueva, se muestra al instante en pantalla
-    inputFoto.addEventListener('change', (evento) => {
-      const archivo = evento.target.files[0];
-      if (archivo) {
-        fotoPerfil.src = URL.createObjectURL(archivo);
-      }
-    });
-  </script>
 
 </body>
 </html>
