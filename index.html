@@ -6,12 +6,59 @@
 <style>
 
   /* ============================================
+     0) FUENTES PERSONALIZADAS (Agbalumo y Cutive)
+     ============================================ */
+  @font-face {
+    font-family: 'Agbalumo';
+    src: url('Fuentes/Agbalumo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Cutive';
+    src: url('Fuentes/Cutive-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* ============================================
+     0.5) BARRA DE NAVEGACIÓN (header)
+     ============================================ */
+  header {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+  }
+
+  header .logo {
+    font-family: 'Agbalumo', cursive;
+    font-size: 1.4rem;
+  }
+
+  header nav a {
+    color: #f4f1ea;
+    text-decoration: none;
+    margin-left: 24px;
+    font-family: 'Cutive', serif;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+  }
+
+  header nav a:hover {
+    color: #ffd27f; /* mismo tono dorado que el brillo de las tarjetas */
+  }
+
+  /* ============================================
      1) FOTO DE FONDO PARA TODA LA PÁGINA
      ============================================ */
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Cutive', serif; /* fuente base para todo el texto */
     color: #f4f1ea;
 
     /* Cambia la ruta por la de tu imagen (relativa o URL) */
@@ -51,30 +98,22 @@
     top: 20px;
     left: 10px;
 
+    font-family: 'Agbalumo', cursive; /* fuente decorativa para el título */
     font-size: 2.5rem;
     text-align: center; /* left | right | center | justify */
   }
 
-  .texto-flotante direccion {
-    /* position: absolute lo saca del flujo normal y lo ubica
-       respecto al primer ancestro con position != static
-       (en este caso, .contenido o body) */
+  /* Cada línea de contacto, una debajo de otra */
+  .texto-flotante {
     position: absolute;
-    top: 120px;
     right: 40px;
     max-width: 250px;
   }
-  }
 
-  .texto-flotante correo {
-    /* position: absolute lo saca del flujo normal y lo ubica
-       respecto al primer ancestro con position != static
-       (en este caso, .contenido o body) */
-    position: absolute;
-    top: 100px;
-    right: 20px;
-    max-width: 230px;
-  }
+  .texto-flotante.intro   { top: 100px; }
+  .texto-flotante.correo  { top: 140px; }
+  .texto-flotante.insta   { top: 180px; }
+  .texto-flotante.numero  { top: 220px; }
 
   /* Otra forma común: centrar texto con flexbox */
   .caja-centrada {
@@ -83,35 +122,83 @@
     align-items: center;     /* eje vertical */
     text-align: center;
     min-height: 150px;
+    font-family: 'Agbalumo', cursive; /* mismo estilo decorativo que el título */
+    font-size: 1.8rem;
   }
 
   /* ============================================
-     3) IMÁGENES CON EFECTO HOVER Y PANTALLA COMPLETA
+     3) TARJETAS DE PROYECTO CON CONTORNO ILUMINADO
      ============================================ */
   .galeria {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
     justify-content: center;
     margin: 20px auto;
   }
 
+  .proyecto-card {
+    background: rgba(20, 20, 20, 0.55); /* fondo semi-transparente para la tarjeta */
+    border-radius: 14px;
+    padding: 16px;
+    width: 260px;
+    text-align: center;
+
+    /* CONTORNO ILUMINADO: un borde sutil + sombra de color a su alrededor */
+    border: 1px solid rgba(255, 210, 127, 0.6);
+    box-shadow: 0 0 14px rgba(255, 210, 127, 0.45);
+
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .proyecto-card:hover {
+    /* al pasar el mouse, el brillo del contorno se intensifica */
+    box-shadow: 0 0 22px rgba(255, 210, 127, 0.9), 0 0 45px rgba(255, 210, 127, 0.35);
+    transform: translateY(-6px);
+  }
+
   .imagen-proyecto {
-    max-width: 260px;
+    max-width: 100%;
     width: 100%;
-    height: auto;      /* mantiene la proporción */
+    height: 160px;
+    object-fit: cover; /* recorta la imagen para que todas las tarjetas midan igual */
     border-radius: 8px;
     display: block;
-    cursor: pointer;    /* avisa que se puede hacer clic */
-
-    /* transición suave para el efecto hover */
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    cursor: pointer;    /* avisa que se puede hacer clic para verla en grande */
+    transition: filter 0.25s ease;
   }
 
   .imagen-proyecto:hover {
-    transform: scale(1.05);                     /* se agranda un poco */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);    /* sombra más marcada */
-    filter: brightness(1.1);                      /* se ilumina un poco */
+    filter: brightness(1.15);
+  }
+
+  .proyecto-card h3 {
+    font-family: 'Agbalumo', cursive;
+    font-size: 1.1rem;
+    margin: 12px 0 6px;
+  }
+
+  .proyecto-card p {
+    font-size: 0.85rem;
+    line-height: 1.3;
+    margin: 0 0 12px;
+    opacity: 0.9;
+  }
+
+  .proyecto-card button {
+    background: transparent;
+    border: 1px solid #ffd27f;
+    color: #ffd27f;
+    padding: 6px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Cutive', serif;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .proyecto-card button:hover {
+    background: #ffd27f;
+    color: #1a1a1a;
   }
 
   /* Fondo oscuro de pantalla completa que aparece al hacer clic */
@@ -156,6 +243,15 @@
 </head>
 <body>
 
+  <!-- BARRA DE NAVEGACIÓN: lleva a la página de perfil -->
+  <header>
+    <div class="logo">Alvaro Ruiz</div>
+    <nav>
+      <a href="index.html">Portafolio</a>
+      <a href="perfil.html">Sobre mí</a>
+    </nav>
+  </header>
+
   <!-- Capa que dibuja el brillo; su posición se actualiza con JS -->
   <div class="brillo-mouse"></div>
 
@@ -163,16 +259,16 @@
 
     <h1 class="titulo">Portafolio</h1>
 
-    <p class="texto-flotante">
+    <p class="texto-flotante intro">
       A este lado podras ver mis contactos:
     </p>
-    <p class="texto-flotante">
+    <p class="texto-flotante correo">
       Correo: Alvaroruizflores25@gmail.com
     </p>
-     <p class="texto-flotante">
+     <p class="texto-flotante insta">
       Instagram: @Alvorion.bb
     </p>
-     <p class="texto-flotante">
+     <p class="texto-flotante numero">
       Numero: +56-962649569
     </p>
 
@@ -180,12 +276,32 @@
       <p>Principales proyectos</p>
     </div>
 
-    <!-- GALERÍA DE IMÁGENES: cada una reacciona al pasar el mouse
-         y abre pantalla completa al hacer clic -->
+    <!-- GALERÍA DE TARJETAS: imagen + título + descripción + botón,
+         con contorno iluminado. Al hacer clic en la imagen o el botón
+         se abre en pantalla completa -->
     <div class="galeria">
-      <img class="imagen-proyecto" src="Portafolio_Imagenes/Futurama_png.png" alt="Nave Futurama - render 3D">
-      <img class="imagen-proyecto" src="Portafolio_Imagenes/Modelo_Basico_png.png" alt="Modelo básico de personaje">
-      <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
+
+      <div class="proyecto-card">
+        <img class="imagen-proyecto" src="Portafolio_Imagenes/Futurama_png.png" alt="Nave Futurama - render 3D">
+        <h3>Nave Futurama</h3>
+        <p>Modelado low-poly de una nave inspirada en Futurama.</p>
+        <button type="button" class="ver-proyecto">Ver proyecto</button>
+      </div>
+
+      <div class="proyecto-card">
+        <img class="imagen-proyecto" src="Portafolio_Imagenes/Modelo_Basico_png.png" alt="Modelo básico de personaje">
+        <h3>Modelo Básico</h3>
+        <p>Base de personaje low-poly usada como punto de partida para rigging.</p>
+        <button type="button" class="ver-proyecto">Ver proyecto</button>
+      </div>
+
+      <div class="proyecto-card">
+        <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
+        <h3>Geo-Vivo</h3>
+        <p>Render de escena orgánica con texturizado y ambientación.</p>
+        <button type="button" class="ver-proyecto">Ver proyecto</button>
+      </div>
+
     </div>
 
   </div>
@@ -211,6 +327,17 @@
       img.addEventListener('click', () => {
         lightboxImg.src = img.src;       // copia la misma imagen al lightbox
         lightbox.classList.add('activo'); // lo muestra
+      });
+    });
+
+    // El botón "Ver proyecto" hace lo mismo: busca la imagen dentro
+    // de su propia tarjeta (.proyecto-card) y la abre en pantalla completa
+    document.querySelectorAll('.ver-proyecto').forEach((boton) => {
+      boton.addEventListener('click', () => {
+        const tarjeta = boton.closest('.proyecto-card');
+        const img = tarjeta.querySelector('.imagen-proyecto');
+        lightboxImg.src = img.src;
+        lightbox.classList.add('activo');
       });
     });
 
