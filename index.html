@@ -89,40 +89,25 @@
   }
 
   /* ============================================
-     2) POSICIÓN DE LAS PALABRAS / TEXTO
+     2) TÍTULO Y ENCABEZADOS DE SECCIÓN
      ============================================ */
   .titulo {
-    /* position: relative te permite moverlo desde su lugar original
-       usando top/left/right/bottom sin sacarlo del flujo normal */
     position: relative;
     top: 20px;
-    left: 10px;
 
-    font-family: 'Agbalumo', cursive; /* fuente decorativa para el título */
+    font-family: 'Agbalumo', cursive;
     font-size: 2.5rem;
-    text-align: center; /* left | right | center | justify */
+    text-align: center;
   }
 
-  /* Cada línea de contacto, una debajo de otra */
-  .texto-flotante {
-    position: absolute;
-    right: 40px;
-    max-width: 250px;
-  }
-
-  .texto-flotante.intro   { top: 100px; }
-  .texto-flotante.correo  { top: 140px; }
-  .texto-flotante.insta   { top: 180px; }
-  .texto-flotante.numero  { top: 220px; }
-
-  /* Otra forma común: centrar texto con flexbox */
+  /* Encabezado reutilizable para cada sección (Proyectos, Plataformas, Contacto) */
   .caja-centrada {
     display: flex;
-    justify-content: center; /* eje horizontal */
-    align-items: center;     /* eje vertical */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     min-height: 150px;
-    font-family: 'Agbalumo', cursive; /* mismo estilo decorativo que el título */
+    font-family: 'Agbalumo', cursive;
     font-size: 1.8rem;
   }
 
@@ -152,7 +137,6 @@
   }
 
   .proyecto-card:hover {
-    /* al pasar el mouse, el brillo del contorno se intensifica */
     box-shadow: 0 0 22px rgba(255, 210, 127, 0.9), 0 0 45px rgba(255, 210, 127, 0.35);
     transform: translateY(-6px);
   }
@@ -161,10 +145,10 @@
     max-width: 100%;
     width: 100%;
     height: 160px;
-    object-fit: cover; /* recorta la imagen para que todas las tarjetas midan igual */
+    object-fit: cover;
     border-radius: 8px;
     display: block;
-    cursor: pointer;    /* avisa que se puede hacer clic para verla en grande */
+    cursor: pointer;
     transition: filter 0.25s ease;
   }
 
@@ -201,15 +185,120 @@
     color: #1a1a1a;
   }
 
-  /* Fondo oscuro de pantalla completa que aparece al hacer clic */
+  /* ============================================
+     4) PLATAFORMAS DE TRABAJO
+     ============================================ */
+  .plataformas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    margin: 20px auto 40px;
+  }
+
+  .plataforma-card {
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 210, 127, 0.6);
+    box-shadow: 0 0 14px rgba(255, 210, 127, 0.35);
+    border-radius: 14px;
+    padding: 22px 18px;
+    width: 200px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .plataforma-card:hover {
+    box-shadow: 0 0 22px rgba(255, 210, 127, 0.9), 0 0 45px rgba(255, 210, 127, 0.35);
+    transform: translateY(-6px);
+  }
+
+  .plataforma-card img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain; /* no recorta el logo, solo lo ajusta dentro del espacio */
+    margin-bottom: 12px;
+  }
+
+  .plataforma-card h3 {
+    font-family: 'Agbalumo', cursive;
+    font-size: 1.05rem;
+    margin: 6px 0;
+  }
+
+  .plataforma-card p {
+    font-size: 0.82rem;
+    line-height: 1.3;
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  /* ============================================
+     5) CONTACTO (footer con accesos directos)
+     ============================================ */
+  .contacto {
+    position: relative;
+    z-index: 5;
+    margin-top: 20px;
+    padding: 30px 20px 50px;
+    text-align: center;
+  }
+
+  .contactos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .contacto-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 130px;
+    padding: 18px 10px;
+
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 210, 127, 0.6);
+    border-radius: 14px;
+    box-shadow: 0 0 12px rgba(255, 210, 127, 0.35);
+
+    color: #f4f1ea;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-family: 'Cutive', serif;
+
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .contacto-card:hover {
+    box-shadow: 0 0 22px rgba(255, 210, 127, 0.9), 0 0 45px rgba(255, 210, 127, 0.35);
+    transform: translateY(-4px);
+  }
+
+  .icono-contacto {
+    font-size: 1.5rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 210, 127, 0.18);
+    border-radius: 50%;
+    font-family: 'Agbalumo', cursive; /* para que la "in" de LinkedIn se vea prolija */
+  }
+
+  /* ============================================
+     6) PANTALLA COMPLETA AL HACER CLIC EN UNA IMAGEN
+     ============================================ */
   .lightbox {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.9);
-    display: none;              /* oculto por defecto, se activa con JS */
+    display: none;
     align-items: center;
     justify-content: center;
-    z-index: 10;                /* por encima de todo, incluso del brillo */
+    z-index: 10;
     cursor: zoom-out;
   }
 
@@ -225,12 +314,12 @@
   }
 
   /* ============================================
-     4) EFECTO DE BRILLO QUE SIGUE AL MOUSE
+     7) EFECTO DE BRILLO QUE SIGUE AL MOUSE
      ============================================ */
   .brillo-mouse {
     position: fixed;
     inset: 0;
-    pointer-events: none; /* para que no bloquee los clics */
+    pointer-events: none;
     z-index: 2;
     background: radial-gradient(
       circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
@@ -258,19 +347,6 @@
   <div class="contenido">
 
     <h1 class="titulo">Portafolio</h1>
-
-    <p class="texto-flotante intro">
-      Mis contactos:
-    </p>
-    <p class="texto-flotante correo">
-      Correo: Alvaroruizflores25@gmail.com
-    </p>
-     <p class="texto-flotante insta">
-      Instagram: @Alvorion.bb
-    </p>
-     <p class="texto-flotante numero">
-      Número: +56-962649569
-    </p>
 
     <div class="caja-centrada">
       <p>Proyectos y Participaciones</p>
@@ -304,7 +380,70 @@
 
     </div>
 
+    <!-- ============================================
+         PLATAFORMAS DE TRABAJO
+         ============================================ -->
+    <div class="caja-centrada">
+      <p>Plataformas de trabajo</p>
+    </div>
+
+    <div class="plataformas">
+
+      <div class="plataforma-card">
+        <img src="Portafolio_Imagenes/logo-unity.png" alt="Logo de Unity">
+        <h3>Unity</h3>
+        <p>Motor principal para el desarrollo de experiencias interactivas y videojuegos.</p>
+      </div>
+
+      <div class="plataforma-card">
+        <img src="Portafolio_Imagenes/logo-blender.png" alt="Logo de Blender">
+        <h3>Blender</h3>
+        <p>Modelado, texturizado y animación 3D de personajes y escenarios.</p>
+      </div>
+
+      <div class="plataforma-card">
+        <img src="Portafolio_Imagenes/logo-photoshop.png" alt="Logo de Photoshop">
+        <h3>Photoshop</h3>
+        <p>Edición de texturas, composición de imágenes y diseño gráfico.</p>
+      </div>
+
+    </div>
+
   </div>
+
+  <!-- ============================================
+       CONTACTO: accesos directos al final de la página
+       ============================================ -->
+  <footer class="contacto">
+    <div class="caja-centrada">
+      <p>Contacto</p>
+    </div>
+
+    <div class="contactos-grid">
+
+      <a class="contacto-card" href="mailto:Alvaroruizflores25@gmail.com">
+        <span class="icono-contacto">✉</span>
+        <span>Correo</span>
+      </a>
+
+      <!-- Reemplaza el enlace de abajo por la URL real de tu perfil de LinkedIn -->
+      <a class="contacto-card" href="https://www.linkedin.com/in/tu-usuario" target="_blank" rel="noopener">
+        <span class="icono-contacto">in</span>
+        <span>LinkedIn</span>
+      </a>
+
+      <a class="contacto-card" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener">
+        <span class="icono-contacto">📷</span>
+        <span>Instagram</span>
+      </a>
+
+      <a class="contacto-card" href="https://wa.me/56962649569" target="_blank" rel="noopener">
+        <span class="icono-contacto">📱</span>
+        <span>+56 9 6264 9569</span>
+      </a>
+
+    </div>
+  </footer>
 
   <!-- Contenedor de pantalla completa (lightbox), vacío hasta que se hace clic -->
   <div class="lightbox" id="lightbox">
@@ -325,8 +464,8 @@
     // Por cada imagen de la galería, al hacer clic se abre en grande
     document.querySelectorAll('.imagen-proyecto').forEach((img) => {
       img.addEventListener('click', () => {
-        lightboxImg.src = img.src;       // copia la misma imagen al lightbox
-        lightbox.classList.add('activo'); // lo muestra
+        lightboxImg.src = img.src;
+        lightbox.classList.add('activo');
       });
     });
 
