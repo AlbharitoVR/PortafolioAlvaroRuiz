@@ -49,7 +49,7 @@
   }
 
   header nav a:hover {
-    color: #ffd27f; /* mismo tono dorado que el brillo de las tarjetas */
+    color: #ffd27f;
   }
 
   /* ============================================
@@ -58,21 +58,19 @@
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: 'Cutive', serif; /* fuente base para todo el texto */
+    font-family: 'Cutive', serif;
     color: #f4f1ea;
 
-    /* Cambia la ruta por la de tu imagen (relativa o URL) */
     background-image: url('Portafolio_Imagenes/cafe_fondo_jpg.jpg');
-    background-size: cover;        /* la imagen cubre todo el ancho/alto */
-    background-position: center;   /* centra la imagen */
-    background-repeat: no-repeat;  /* evita que se repita en mosaico */
-    background-attachment: fixed;  /* el fondo no se mueve al hacer scroll */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
-    position: relative; /* necesario para que el brillo del mouse se ancle aquí */
+    position: relative;
     overflow-x: hidden;
   }
 
-  /* Capa oscura opcional encima del fondo, para que el texto se lea mejor */
   body::before {
     content: "";
     position: fixed;
@@ -81,7 +79,6 @@
     z-index: 0;
   }
 
-  /* Todo el contenido va por encima de la capa oscura */
   .contenido {
     position: relative;
     z-index: 5;
@@ -100,7 +97,6 @@
     text-align: center;
   }
 
-  /* Encabezado reutilizable para cada sección (Proyectos, Plataformas, Contacto) */
   .caja-centrada {
     display: flex;
     justify-content: center;
@@ -123,13 +119,12 @@
   }
 
   .proyecto-card {
-    background: rgba(20, 20, 20, 0.55); /* fondo semi-transparente para la tarjeta */
+    background: rgba(20, 20, 20, 0.55);
     border-radius: 14px;
     padding: 16px;
     width: 260px;
     text-align: center;
 
-    /* CONTORNO ILUMINADO: un borde sutil + sombra de color a su alrededor */
     border: 1px solid rgba(255, 210, 127, 0.6);
     box-shadow: 0 0 14px rgba(255, 210, 127, 0.45);
 
@@ -212,13 +207,6 @@
     transform: translateY(-6px);
   }
 
-  .plataforma-card img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain; /* no recorta el logo, solo lo ajusta dentro del espacio */
-    margin-bottom: 12px;
-  }
-
   .plataforma-card h3 {
     font-family: 'Agbalumo', cursive;
     font-size: 1.05rem;
@@ -230,6 +218,24 @@
     line-height: 1.3;
     opacity: 0.9;
     margin: 0;
+  }
+
+  .icono-plataforma {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 210, 127, 0.18);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .icono-plataforma img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
   }
 
   /* ============================================
@@ -277,7 +283,6 @@
   }
 
   .icono-contacto {
-    font-size: 1.5rem;
     width: 44px;
     height: 44px;
     display: flex;
@@ -285,12 +290,9 @@
     justify-content: center;
     background: rgba(255, 210, 127, 0.18);
     border-radius: 50%;
-    font-family: 'Agbalumo', cursive; /* para que la "in" de LinkedIn se vea prolija */
-    overflow: hidden; /* recorta cualquier logo que se pase del círculo */
+    overflow: hidden;
   }
 
-  /* Si dentro del ícono pones un logo (img) en vez de un emoji o texto,
-     estas reglas hacen que se ajuste al círculo en vez de verse gigante */
   .icono-contacto img {
     width: 24px;
     height: 24px;
@@ -298,28 +300,55 @@
   }
 
   /* ============================================
-     6) PANTALLA COMPLETA AL HACER CLIC EN UNA IMAGEN
+     6) GALERÍA DE PANTALLA COMPLETA (varias fotos por proyecto)
      ============================================ */
   .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
-    display: none;
-    align-items: center;
+    background: rgba(0, 0, 0, 0.92);
+    display: none;              /* oculto por defecto, se activa con JS */
+    align-items: flex-start;    /* si hay muchas fotos, se acomodan desde arriba */
     justify-content: center;
+    overflow-y: auto;           /* permite hacer scroll si las fotos no caben */
+    padding: 60px 20px;
     z-index: 10;
-    cursor: zoom-out;
   }
 
   .lightbox.activo {
     display: flex;
   }
 
-  .lightbox img {
-    max-width: 90vw;
-    max-height: 90vh;
+  /* Contenedor donde se insertan todas las fotos del proyecto elegido */
+  #lightbox-galeria {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  /* Cada foto dentro de la galería: se puede hacer zoom haciendo clic */
+  .foto-zoom {
+    max-width: 320px;
+    max-height: 320px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    cursor: zoom-in;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Al hacer clic una vez, la foto se agranda (zoom).
+     Al volver a hacer clic sobre ella, esta clase se quita y vuelve a su tamaño */
+  .foto-zoom.zoom-activo {
+    transform: scale(1.6);
+    cursor: zoom-out;
+    box-shadow: 0 0 35px rgba(255, 210, 127, 0.6);
+    position: relative;
+    z-index: 20;
   }
 
   /* ============================================
@@ -341,7 +370,6 @@
 </head>
 <body>
 
-  <!-- BARRA DE NAVEGACIÓN: lleva a la página de perfil -->
   <header>
     <div class="logo">Álvaro Ruiz</div>
     <nav>
@@ -350,7 +378,6 @@
     </nav>
   </header>
 
-  <!-- Capa que dibuja el brillo; su posición se actualiza con JS -->
   <div class="brillo-mouse"></div>
 
   <div class="contenido">
@@ -361,19 +388,21 @@
       <p>Proyectos y Participaciones</p>
     </div>
 
-    <!-- GALERÍA DE TARJETAS: imagen + título + descripción + botón,
-         con contorno iluminado. Al hacer clic en la imagen o el botón
-         se abre en pantalla completa -->
+    <!-- GALERÍA DE TARJETAS: cada tarjeta guarda TODAS sus fotos en el
+         atributo data-fotos (una lista en formato JSON). Al hacer clic
+         en la imagen o en el botón, se abren todas juntas en pantalla completa -->
     <div class="galeria">
 
-      <div class="proyecto-card">
+      <div class="proyecto-card"
+           data-fotos='["Portafolio_Imagenes/Futurama_png.png","Portafolio_Imagenes/Futurama_png_2.png","Portafolio_Imagenes/Futurama_png_3.png"]'>
         <img class="imagen-proyecto" src="Portafolio_Imagenes/Futurama_png.png" alt="Nave Futurama - render 3D">
         <h3>Nave Futurama</h3>
         <p>Modelado Low Poly, Basado en serie Futurama, Hecho a su vez con LODS.</p>
         <button type="button" class="ver-proyecto">Ver proyecto</button>
       </div>
 
-      <div class="proyecto-card">
+      <div class="proyecto-card"
+           data-fotos='["Portafolio_Imagenes/Modelo_Basico_png.png","Portafolio_Imagenes/Modelo_Basico_png_2.png","Portafolio_Imagenes/Modelo_Basico_png_3.png"]'>
         <img class="imagen-proyecto" src="Portafolio_Imagenes/Modelo_Basico_png.png" alt="Modelo básico de personaje">
         <h3>Modelo Básico</h3>
         <p>Base de personaje low-poly usada como punto de partida para rigging. Destacado por haberlo hecho en un tiempo relativamente corto (20 min. aprox).</p>
@@ -381,7 +410,7 @@
       </div>
 
       <div class="proyecto-card"
-             data-fotos='["Portafolio_Imagenes/Render_Geo-Vivo_png.png","Portafolio_Imagenes/GeoVivo2_png.png","GeoVivo3_png.png","GeoVivo4_png.png","GeoVivo5_png.png","GeoVivo6_png.png"]'>
+           data-fotos='["Portafolio_Imagenes/Render_Geo-Vivo_png.png","Portafolio_Imagenes/GeoVivo2_png.png","Portafolio_Imagenes/GeoVivo3_png.png","Portafolio_Imagenes/GeoVivo4_png.png","Portafolio_Imagenes/GeoVivo5_png.png","Portafolio_Imagenes/GeoVivo6_png.png"]'>
         <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
         <h3>Geo-Vivo</h3>
         <p>Render de Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser, combina diferentes elementos el cobra vida </p>
@@ -390,9 +419,6 @@
 
     </div>
 
-    <!-- ============================================
-         PLATAFORMAS DE TRABAJO
-         ============================================ -->
     <div class="caja-centrada">
       <p>Plataformas de trabajo</p>
     </div>
@@ -435,9 +461,6 @@
 
   </div>
 
-  <!-- ============================================
-       CONTACTO: accesos directos al final de la página
-       ============================================ -->
   <footer class="contacto">
     <div class="caja-centrada">
       <p>Contacto</p>
@@ -452,7 +475,6 @@
         <span>Correo</span>
       </a>
 
-      <!-- Reemplaza el enlace de abajo por la URL real de tu perfil de LinkedIn -->
       <a class="contacto-card" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener">
         <span class="icono-contacto">
         <img src="Portafolio_Imagenes/LinkedIn_png.png" alt="Logo de LinkedIn">
@@ -477,42 +499,69 @@
     </div>
   </footer>
 
-  <!-- Contenedor de pantalla completa (lightbox), vacío hasta que se hace clic -->
+  <!-- Ventana de pantalla completa: aquí se insertan todas las fotos
+       del proyecto que el usuario elija -->
   <div class="lightbox" id="lightbox">
-    <img id="lightbox-img" src="" alt="Imagen ampliada">
+    <div id="lightbox-galeria"></div>
   </div>
 
   <script>
-    // Actualiza la posición del brillo según el mouse
+    // --- Brillo que sigue al mouse ---
     document.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
       document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
     });
 
-    // --- Lógica de la pantalla completa (lightbox) ---
+    // --- Galería de pantalla completa ---
     const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxGaleria = document.getElementById('lightbox-galeria');
 
-    // Por cada imagen de la galería, al hacer clic se abre en grande
-    document.querySelectorAll('.imagen-proyecto').forEach((img) => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('activo');
+    // Recibe la lista de fotos de un proyecto y las dibuja todas dentro del lightbox
+    function abrirGaleria(listaFotos) {
+      lightboxGaleria.innerHTML = ''; // limpia lo que hubiera antes
+
+      listaFotos.forEach((rutaFoto) => {
+        const foto = document.createElement('img');
+        foto.src = rutaFoto;
+        foto.className = 'foto-zoom';
+
+        // Al hacer clic en UNA foto, se le agranda (zoom).
+        // Si se vuelve a hacer clic sobre la misma, el zoom se quita.
+        foto.addEventListener('click', (evento) => {
+          evento.stopPropagation(); // evita que el clic cierre todo el lightbox
+          foto.classList.toggle('zoom-activo');
+        });
+
+        lightboxGaleria.appendChild(foto);
+      });
+
+      lightbox.classList.add('activo');
+    }
+
+    // Por cada tarjeta de proyecto, se lee su lista de fotos (data-fotos)
+    // y se conecta tanto la imagen de portada como el botón "Ver proyecto"
+    document.querySelectorAll('.proyecto-card').forEach((tarjeta) => {
+      let fotosProyecto;
+
+      try {
+        fotosProyecto = JSON.parse(tarjeta.dataset.fotos);
+      } catch (error) {
+        // Si el JSON de esta tarjeta está mal escrito (falta una coma, comillas, etc.),
+        // se avisa en la consola (F12) en vez de romper el resto de la página
+        console.error('data-fotos mal escrito en esta tarjeta:', tarjeta, error);
+        return; // salta esta tarjeta y sigue con las demás
+      }
+
+      tarjeta.querySelector('.imagen-proyecto').addEventListener('click', () => {
+        abrirGaleria(fotosProyecto);
+      });
+
+      tarjeta.querySelector('.ver-proyecto').addEventListener('click', () => {
+        abrirGaleria(fotosProyecto);
       });
     });
 
-    // El botón "Ver proyecto" hace lo mismo: busca la imagen dentro
-    // de su propia tarjeta (.proyecto-card) y la abre en pantalla completa
-    document.querySelectorAll('.ver-proyecto').forEach((boton) => {
-      boton.addEventListener('click', () => {
-        const tarjeta = boton.closest('.proyecto-card');
-        const img = tarjeta.querySelector('.imagen-proyecto');
-        lightboxImg.src = img.src;
-        lightbox.classList.add('activo');
-      });
-    });
-
-    // Al hacer clic en cualquier parte del fondo oscuro, se cierra
+    // Al hacer clic en el fondo oscuro (fuera de cualquier foto), se cierra todo
     lightbox.addEventListener('click', () => {
       lightbox.classList.remove('activo');
     });
