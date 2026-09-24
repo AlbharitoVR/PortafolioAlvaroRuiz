@@ -525,11 +525,24 @@
         foto.src = rutaFoto;
         foto.className = 'foto-zoom';
 
-        // Al hacer clic en UNA foto, se le agranda (zoom).
-        // Si se vuelve a hacer clic sobre la misma, el zoom se quita.
+        // Al hacer clic en UNA foto, se le agranda (zoom) y se le quita
+        // el zoom a cualquier otra que estuviera ampliada en esa misma galería.
+        // Si se vuelve a hacer clic sobre la misma que ya está en zoom, se le quita.
         foto.addEventListener('click', (evento) => {
           evento.stopPropagation(); // evita que el clic cierre todo el lightbox
-          foto.classList.toggle('zoom-activo');
+
+          const yaEstabaActiva = foto.classList.contains('zoom-activo');
+
+          // quita el zoom de TODAS las fotos de esta galería
+          lightboxGaleria.querySelectorAll('.foto-zoom').forEach((otraFoto) => {
+            otraFoto.classList.remove('zoom-activo');
+          });
+
+          // si la foto clickeada no estaba activa, ahora se activa
+          // (si ya estaba activa, queda desactivada: eso logra el "toggle")
+          if (!yaEstabaActiva) {
+            foto.classList.add('zoom-activo');
+          }
         });
 
         lightboxGaleria.appendChild(foto);
