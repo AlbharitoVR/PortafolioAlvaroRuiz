@@ -578,6 +578,91 @@
     lightbox.addEventListener('click', () => {
       lightbox.classList.remove('activo');
     });
+
+    // --- Recomendaciones (comentarios) ---
+    const CLAVE_RECOMENDACIONES = 'recomendaciones-portafolio';
+    const recNombre = document.getElementById('rec-nombre');
+    const recTexto = document.getElementById('rec-texto');
+    const recEnviar = document.getElementById('rec-enviar');
+    const recLista = document.getElementById('rec-lista');
+ 
+    // Lee los comentarios guardados en este navegador
+    function leerRecomendaciones() {
+      try {
+        return JSON.parse(localStorage.getItem(CLAVE_RECOMENDACIONES)) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+ 
+    // Guarda la lista completa de comentarios
+    function guardarRecomendaciones(lista) {
+      try {
+        localStorage.setItem(CLAVE_RECOMENDACIONES, JSON.stringify(lista));
+      } catch (error) {
+        console.warn('No se pudieron guardar las recomendaciones:', error);
+      }
+    }
+ 
+    // Dibuja todos los comentarios (los más nuevos arriba)
+    function mostrarRecomendaciones() {
+      const lista = leerRecomendaciones();
+      recLista.innerHTML = '';
+ 
+      if (lista.length === 0) {
+        const vacio = document.createElement('p');
+        vacio.className = 'sin-comentarios';
+        vacio.textContent = 'Aún no hay recomendaciones. ¡Sé la primera persona en dejar una!';
+        recLista.appendChild(vacio);
+        return;
+      }
+ 
+      lista.slice().reverse().forEach((rec) => {
+        const caja = document.createElement('div');
+        caja.className = 'comentario';
+ 
+        const autor = document.createElement('p');
+        autor.className = 'autor';
+        autor.textContent = rec.nombre;
+ 
+        const fecha = document.createElement('p');
+        fecha.className = 'fecha';
+        fecha.textContent = rec.fecha;
+ 
+        const texto = document.createElement('p');
+        texto.className = 'texto';
+        texto.textContent = rec.texto;
+ 
+        // textContent (en vez de innerHTML) evita que alguien inserte código en un comentario
+        caja.appendChild(autor);
+        caja.appendChild(fecha);
+        caja.appendChild(texto);
+        recLista.appendChild(caja);
+      });
+    }
+ 
+    // Al presionar el botón, se agrega el comentario nuevo
+    recEnviar.addEventListener('click', () => {
+      const nombre = recNombre.value.trim();
+      const texto = recTexto.value.trim();
+ 
+      if (!nombre || !texto) {
+        alert('Escribe tu nombre y tu recomendación antes de enviar.');
+        return;
+      }
+ 
+      const lista = leerRecomendaciones();
+      lista.push({
+        nombre: nombre,
+        texto: texto,
+        fecha: new Date().toLocaleDateString('es-CL')
+      });
+      guardarRecomendaciones(lista);
+ 
+      recNombre.value = '';
+      recTexto.value = '';
+      mostrarRecomendaciones();
+    });
   </script>
 
 </body>
