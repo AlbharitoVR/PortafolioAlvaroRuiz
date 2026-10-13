@@ -239,6 +239,119 @@
   }
 
   /* ============================================
+     4.5) RECOMENDACIONES (caja de comentarios)
+     ============================================ */
+  .recomendaciones {
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+
+  /* Formulario para escribir una recomendación */
+  .form-recomendacion {
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 210, 127, 0.6);
+    box-shadow: 0 0 14px rgba(255, 210, 127, 0.35);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-recomendacion input,
+  .form-recomendacion textarea {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 210, 127, 0.4);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #f4f1ea;
+    font-family: 'Cutive', serif;
+    font-size: 0.95rem;
+    outline: none;
+  }
+
+  .form-recomendacion textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+
+  .form-recomendacion input:focus,
+  .form-recomendacion textarea:focus {
+    border-color: #ffd27f;
+    box-shadow: 0 0 10px rgba(255, 210, 127, 0.4);
+  }
+
+  .form-recomendacion input::placeholder,
+  .form-recomendacion textarea::placeholder {
+    color: rgba(244, 241, 234, 0.55);
+  }
+
+  .form-recomendacion button {
+    align-self: flex-end;
+    background: transparent;
+    border: 1px solid #ffd27f;
+    color: #ffd27f;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Cutive', serif;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .form-recomendacion button:hover {
+    background: #ffd27f;
+    color: #1a1a1a;
+  }
+
+  .nota-recomendaciones {
+    font-size: 0.75rem;
+    opacity: 0.65;
+    margin: 0;
+  }
+
+  /* Lista de comentarios ya publicados */
+  .lista-recomendaciones {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .comentario {
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 210, 127, 0.45);
+    border-radius: 12px;
+    padding: 14px 18px;
+    box-shadow: 0 0 10px rgba(255, 210, 127, 0.25);
+  }
+
+  .comentario .autor {
+    font-family: 'Agbalumo', cursive;
+    font-size: 1rem;
+    color: #ffd27f;
+    margin: 0 0 4px;
+  }
+
+  .comentario .fecha {
+    font-size: 0.72rem;
+    opacity: 0.6;
+    margin: 0 0 8px;
+  }
+
+  .comentario .texto {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    white-space: pre-wrap; /* respeta los saltos de línea que escribió la persona */
+  }
+
+  .sin-comentarios {
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  /* ============================================
      5) CONTACTO (footer con accesos directos)
      ============================================ */
   .contacto {
@@ -459,6 +572,27 @@
 
     </div>
 
+    <!-- ============================================
+         RECOMENDACIONES: caja para dejar comentarios
+         ============================================ -->
+    <div class="caja-centrada">
+      <p>Recomendaciones</p>
+    </div>
+
+    <div class="recomendaciones">
+
+      <div class="form-recomendacion">
+        <input type="text" id="rec-nombre" placeholder="Tu nombre" maxlength="40">
+        <textarea id="rec-texto" placeholder="Escribe tu recomendación o comentario..." maxlength="500"></textarea>
+        <p class="nota-recomendaciones">Las recomendaciones se guardan solo en este navegador.</p>
+        <button type="button" id="rec-enviar">Enviar recomendación</button>
+      </div>
+
+      <!-- Aquí se van agregando los comentarios con JavaScript -->
+      <div class="lista-recomendaciones" id="rec-lista"></div>
+
+    </div>
+
   </div>
 
   <footer class="contacto">
@@ -578,6 +712,94 @@
     lightbox.addEventListener('click', () => {
       lightbox.classList.remove('activo');
     });
+
+    // --- Recomendaciones (comentarios) ---
+    const CLAVE_RECOMENDACIONES = 'recomendaciones-portafolio';
+    const recNombre = document.getElementById('rec-nombre');
+    const recTexto = document.getElementById('rec-texto');
+    const recEnviar = document.getElementById('rec-enviar');
+    const recLista = document.getElementById('rec-lista');
+
+    // Lee los comentarios guardados en este navegador
+    function leerRecomendaciones() {
+      try {
+        return JSON.parse(localStorage.getItem(CLAVE_RECOMENDACIONES)) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    // Guarda la lista completa de comentarios
+    function guardarRecomendaciones(lista) {
+      try {
+        localStorage.setItem(CLAVE_RECOMENDACIONES, JSON.stringify(lista));
+      } catch (error) {
+        console.warn('No se pudieron guardar las recomendaciones:', error);
+      }
+    }
+
+    // Dibuja todos los comentarios (los más nuevos arriba)
+    function mostrarRecomendaciones() {
+      const lista = leerRecomendaciones();
+      recLista.innerHTML = '';
+
+      if (lista.length === 0) {
+        const vacio = document.createElement('p');
+        vacio.className = 'sin-comentarios';
+        vacio.textContent = 'Aún no hay recomendaciones. ¡Sé la primera persona en dejar una!';
+        recLista.appendChild(vacio);
+        return;
+      }
+
+      lista.slice().reverse().forEach((rec) => {
+        const caja = document.createElement('div');
+        caja.className = 'comentario';
+
+        const autor = document.createElement('p');
+        autor.className = 'autor';
+        autor.textContent = rec.nombre;
+
+        const fecha = document.createElement('p');
+        fecha.className = 'fecha';
+        fecha.textContent = rec.fecha;
+
+        const texto = document.createElement('p');
+        texto.className = 'texto';
+        texto.textContent = rec.texto;
+
+        // textContent (en vez de innerHTML) evita que alguien inserte código en un comentario
+        caja.appendChild(autor);
+        caja.appendChild(fecha);
+        caja.appendChild(texto);
+        recLista.appendChild(caja);
+      });
+    }
+
+    // Al presionar el botón, se agrega el comentario nuevo
+    recEnviar.addEventListener('click', () => {
+      const nombre = recNombre.value.trim();
+      const texto = recTexto.value.trim();
+
+      if (!nombre || !texto) {
+        alert('Escribe tu nombre y tu recomendación antes de enviar.');
+        return;
+      }
+
+      const lista = leerRecomendaciones();
+      lista.push({
+        nombre: nombre,
+        texto: texto,
+        fecha: new Date().toLocaleDateString('es-CL')
+      });
+      guardarRecomendaciones(lista);
+
+      recNombre.value = '';
+      recTexto.value = '';
+      mostrarRecomendaciones();
+    });
+
+    // Al cargar la página, se muestran los comentarios guardados
+    mostrarRecomendaciones();
   </script>
 
 </body>
