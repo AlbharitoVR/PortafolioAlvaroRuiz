@@ -49,13 +49,37 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    gap: 24px;
+    padding: 30px 40px;
     border-bottom: 1px solid rgba(255, 210, 127, 0.15);
+  }
+
+  /* Lado izquierdo: nombre + carrera */
+  header .marca {
+    max-width: 520px;
   }
 
   header .logo {
     font-family: 'Agbalumo', cursive;
-    font-size: 1.4rem;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  header .subtitulo {
+    margin: 8px 0 0;
+    font-family: 'Cutive', serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    opacity: 0.85;
+  }
+
+  /* Lado derecho: menú + luz verde de disponibilidad */
+  header .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
   }
 
   header nav a {
@@ -63,12 +87,68 @@
     text-decoration: none;
     margin-left: 24px;
     font-family: 'Cutive', serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     transition: color 0.2s ease;
   }
 
   header nav a:hover {
     color: #ffd27f;
+  }
+
+  /* Etiqueta "Disponible para trabajar" con luz verde */
+  header .disponible {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 5px 14px;
+    font-family: 'Cutive', serif;
+    font-size: 0.85rem;
+    background: var(--vidrio);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(76, 217, 100, 0.35);
+    border-radius: 999px;
+  }
+
+  .luz-verde {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #4cd964;
+    box-shadow: 0 0 6px rgba(76, 217, 100, 0.8);
+    animation: pulso-verde 2s ease-in-out infinite; /* late suavemente, como una luz de "en línea" */
+  }
+
+  @keyframes pulso-verde {
+    0%, 100% { box-shadow: 0 0 4px rgba(76, 217, 100, 0.55); }
+    50%      { box-shadow: 0 0 10px rgba(76, 217, 100, 0.95); }
+  }
+
+  /* Si la persona tiene desactivadas las animaciones en su dispositivo, la luz queda fija */
+  @media (prefers-reduced-motion: reduce) {
+    .luz-verde { animation: none; }
+  }
+
+  /* Celular: el encabezado se apila (nombre arriba, menú abajo) y las letras se ajustan */
+  @media (max-width: 720px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px 20px;
+    }
+    header .logo { font-size: 1.8rem; }
+    header .subtitulo { font-size: 0.92rem; }
+    header .menu {
+      width: 100%;
+      align-items: flex-start;
+    }
+    header nav a {
+      margin-left: 0;
+      margin-right: 20px;
+      font-size: 1.05rem;
+    }
   }
 
   /* ============================================
@@ -614,11 +694,22 @@
 <body>
 
   <header>
-    <div class="logo">Álvaro Ruiz</div>
-    <nav>
-      <a href="index.html">Portafolio</a>
-      <a href="perfil.html">Sobre mí</a>
-    </nav>
+
+    <!-- Lado izquierdo: nombre y carrera -->
+    <div class="marca">
+      <div class="logo">Álvaro Ruiz</div>
+      <p class="subtitulo">Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
+    </div>
+
+    <!-- Lado derecho: menú y estado de disponibilidad -->
+    <div class="menu">
+      <nav>
+        <a href="index.html">Portafolio</a>
+        <a href="perfil.html">Sobre mí</a>
+      </nav>
+      <p class="disponible"><span class="luz-verde"></span>Disponible para trabajar</p>
+    </div>
+
   </header>
 
   <div class="brillo-mouse"></div>
@@ -1014,3 +1105,4 @@
 
 </body>
 </html>
+
