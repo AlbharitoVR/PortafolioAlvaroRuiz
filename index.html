@@ -108,40 +108,70 @@
   }
 
   /* ============================================
-     3) TARJETAS DE PROYECTO CON CONTORNO ILUMINADO
+     3) CARRUSEL DE PROYECTOS (pantalla grande con flechas)
      ============================================ */
-  .galeria {
+  .carrusel {
     display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    justify-content: center;
-    margin: 20px auto;
+    align-items: center;
+    gap: 16px;
+    max-width: 960px;
+    margin: 20px auto 16px;
   }
 
-  .proyecto-card {
-    background: rgba(20, 20, 20, 0.55);
-    border-radius: 14px;
-    padding: 16px;
-    width: 260px;
-    text-align: center;
+  /* Zona central donde se muestra un proyecto a la vez */
+  .carrusel-pista {
+    flex: 1;
+    min-width: 0; /* evita que una imagen grande ensanche el carrusel */
+  }
 
+  /* Cada proyecto es una "diapositiva": solo la que tiene la clase .activa se ve */
+  .proyecto-card {
+    display: none;
+    background: rgba(20, 20, 20, 0.55);
     border: 1px solid rgba(255, 210, 127, 0.6);
     box-shadow: 0 0 14px rgba(255, 210, 127, 0.45);
+    border-radius: 14px;
+    padding: 22px;
+    transition: box-shadow 0.3s ease;
+  }
 
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  .proyecto-card.activa {
+    display: block;
+    animation: aparecer-proyecto 0.35s ease;
   }
 
   .proyecto-card:hover {
     box-shadow: 0 0 22px rgba(255, 210, 127, 0.9), 0 0 45px rgba(255, 210, 127, 0.35);
-    transform: translateY(-6px);
   }
 
+  @keyframes aparecer-proyecto {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Fila superior: título a la izquierda, botón "Ver proyecto" a la derecha */
+  .proyecto-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+
+  .proyecto-card h3 {
+    font-family: 'Agbalumo', cursive;
+    font-size: 1.7rem;
+    margin: 0;
+    text-align: left;
+  }
+
+  /* Portada grande dentro de un marco rectangular */
   .imagen-proyecto {
-    max-width: 100%;
     width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-radius: 8px;
+    aspect-ratio: 2 / 1;      /* proporción del marco: el doble de ancho que de alto */
+    object-fit: cover;        /* recorta la imagen para llenar el marco sin deformarla */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 210, 127, 0.4);
     display: block;
     cursor: pointer;
     transition: filter 0.25s ease;
@@ -151,33 +181,87 @@
     filter: brightness(1.15);
   }
 
-  .proyecto-card h3 {
-    font-family: 'Agbalumo', cursive;
-    font-size: 1.1rem;
-    margin: 12px 0 6px;
-  }
-
   .proyecto-card p {
-    font-size: 0.85rem;
-    line-height: 1.3;
-    margin: 0 0 12px;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 14px 0 0;
+    text-align: left;
     opacity: 0.9;
   }
 
-  .proyecto-card button {
+  .ver-proyecto {
+    flex-shrink: 0;
     background: transparent;
     border: 1px solid #ffd27f;
     color: #ffd27f;
-    padding: 6px 16px;
+    padding: 8px 20px;
     border-radius: 6px;
     cursor: pointer;
     font-family: 'Cutive', serif;
+    font-size: 0.95rem;
     transition: background 0.2s ease, color 0.2s ease;
   }
 
-  .proyecto-card button:hover {
+  .ver-proyecto:hover {
     background: #ffd27f;
     color: #1a1a1a;
+  }
+
+  /* Flechas izquierda y derecha */
+  .flecha {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.55);
+    border: 1px solid #ffd27f;
+    box-shadow: 0 0 12px rgba(255, 210, 127, 0.35);
+    color: #ffd27f;
+    font-family: Arial, sans-serif;
+    font-size: 1.8rem;
+    line-height: 1;
+    padding: 0 0 4px; /* centra visualmente el símbolo dentro del círculo */
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .flecha:hover {
+    background: #ffd27f;
+    color: #1a1a1a;
+    box-shadow: 0 0 20px rgba(255, 210, 127, 0.8);
+  }
+
+  /* Puntitos que indican en qué proyecto estás (también se pueden presionar) */
+  .carrusel-puntos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .punto {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #ffd27f;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .punto.activo {
+    background: #ffd27f;
+    box-shadow: 0 0 8px rgba(255, 210, 127, 0.8);
+  }
+
+  /* Ajustes para pantallas pequeñas (celular) */
+  @media (max-width: 640px) {
+    .carrusel { gap: 8px; }
+    .flecha { width: 36px; height: 36px; font-size: 1.4rem; }
+    .proyecto-card { padding: 14px; }
+    .proyecto-card h3 { font-size: 1.2rem; }
+    .proyecto-encabezado { flex-wrap: wrap; }
   }
 
   /* ============================================
@@ -501,36 +585,54 @@
       <p>Proyectos y Participaciones</p>
     </div>
 
-    <!-- GALERÍA DE TARJETAS: cada tarjeta guarda TODAS sus fotos en el
-         atributo data-fotos (una lista en formato JSON). Al hacer clic
-         en la imagen o en el botón, se abren todas juntas en pantalla completa -->
-    <div class="galeria">
+    <!-- CARRUSEL DE PROYECTOS: se ve un proyecto a la vez en grande.
+         Las flechas cambian de proyecto y al llegar al último vuelven al primero.
+         Cada proyecto guarda TODAS sus fotos en data-fotos (lista en formato JSON):
+         al hacer clic en la portada o en "Ver proyecto" se abren todas juntas -->
+    <div class="carrusel">
 
-      <div class="proyecto-card"
-           data-fotos='["Portafolio_Imagenes/Futurama_png.png","Portafolio_Imagenes/Futurama_png_2.png","Portafolio_Imagenes/Futurama_png_3.png"]'>
-        <img class="imagen-proyecto" src="Portafolio_Imagenes/Futurama_png.png" alt="Nave Futurama - render 3D">
-        <h3>Nave Futurama</h3>
-        <p>Modelado Low Poly, Basado en serie Futurama, Hecho a su vez con LODS.</p>
-        <button type="button" class="ver-proyecto">Ver proyecto</button>
+      <button type="button" class="flecha" id="flecha-izq" aria-label="Proyecto anterior">&#8249;</button>
+
+      <div class="carrusel-pista">
+
+        <div class="proyecto-card activa"
+             data-fotos='["Portafolio_Imagenes/Render_Geo-Vivo_png.png","Portafolio_Imagenes/GeoVivo2_png.png","Portafolio_Imagenes/GeoVivo3_png.png","Portafolio_Imagenes/GeoVivo4_png.png","Portafolio_Imagenes/GeoVivo5_png.png","Portafolio_Imagenes/GeoVivo6_png.png"]'>
+          <div class="proyecto-encabezado">
+            <h3>Geo-Vivo</h3>
+            <button type="button" class="ver-proyecto">Ver proyecto</button>
+          </div>
+          <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
+          <p>Render de Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser, combina diferentes elementos el cobra vida </p>
+        </div>
+
+        <div class="proyecto-card"
+             data-fotos='["Portafolio_Imagenes/Futurama_png.png","Portafolio_Imagenes/Futurama_png_2.png","Portafolio_Imagenes/Futurama_png_3.png"]'>
+          <div class="proyecto-encabezado">
+            <h3>Nave Futurama</h3>
+            <button type="button" class="ver-proyecto">Ver proyecto</button>
+          </div>
+          <img class="imagen-proyecto" src="Portafolio_Imagenes/Futurama_png.png" alt="Nave Futurama - render 3D">
+          <p>Modelado Low Poly, Basado en serie Futurama, Hecho a su vez con LODS.</p>
+        </div>
+
+        <div class="proyecto-card"
+             data-fotos='["Portafolio_Imagenes/Modelo_Basico_png.png","Portafolio_Imagenes/Modelo_Cuerpo2_png.png","Portafolio_Imagenes/Modelo_Cuerpo3_png.png","Portafolio_Imagenes/Modelo_Cuerpo4_png.png"]'>
+          <div class="proyecto-encabezado">
+            <h3>Modelo Básico</h3>
+            <button type="button" class="ver-proyecto">Ver proyecto</button>
+          </div>
+          <img class="imagen-proyecto" src="Portafolio_Imagenes/Modelo_Basico_png.png" alt="Modelo básico de personaje">
+          <p>Base de personaje low-poly usada como punto de partida para rigging. Destacado por haberlo hecho en un tiempo relativamente corto (20 min. aprox).</p>
+        </div>
+
       </div>
 
-      <div class="proyecto-card"
-           data-fotos='["Portafolio_Imagenes/Modelo_Basico_png.png","Portafolio_Imagenes/Modelo_Cuerpo2_png.png","Portafolio_Imagenes/Modelo_Cuerpo3_png.png","Portafolio_Imagenes/Modelo_Cuerpo4_png.png"]'>
-        <img class="imagen-proyecto" src="Portafolio_Imagenes/Modelo_Basico_png.png" alt="Modelo básico de personaje">
-        <h3>Modelo Básico</h3>
-        <p>Base de personaje low-poly usada como punto de partida para rigging. Destacado por haberlo hecho en un tiempo relativamente corto (20 min. aprox).</p>
-        <button type="button" class="ver-proyecto">Ver proyecto</button>
-      </div>
-
-      <div class="proyecto-card"
-           data-fotos='["Portafolio_Imagenes/Render_Geo-Vivo_png.png","Portafolio_Imagenes/GeoVivo2_png.png","Portafolio_Imagenes/GeoVivo3_png.png","Portafolio_Imagenes/GeoVivo4_png.png","Portafolio_Imagenes/GeoVivo5_png.png","Portafolio_Imagenes/GeoVivo6_png.png"]'>
-        <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
-        <h3>Geo-Vivo</h3>
-        <p>Render de Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser, combina diferentes elementos el cobra vida </p>
-        <button type="button" class="ver-proyecto">Ver proyecto</button>
-      </div>
+      <button type="button" class="flecha" id="flecha-der" aria-label="Proyecto siguiente">&#8250;</button>
 
     </div>
+
+    <!-- Puntitos de posición (los crea el script) -->
+    <div class="carrusel-puntos" id="carrusel-puntos"></div>
 
     <div class="caja-centrada">
       <p>Plataformas de trabajo</p>
@@ -707,6 +809,41 @@
         abrirGaleria(fotosProyecto);
       });
     });
+
+    // --- Carrusel de proyectos ---
+    const diapositivas = document.querySelectorAll('.proyecto-card');
+    const contenedorPuntos = document.getElementById('carrusel-puntos');
+    let indiceActual = 0;
+
+    // Crea un puntito por cada proyecto; al presionarlo se salta a ese proyecto
+    const puntos = Array.from(diapositivas).map((_, indice) => {
+      const punto = document.createElement('button');
+      punto.type = 'button';
+      punto.className = 'punto';
+      punto.setAttribute('aria-label', 'Ir al proyecto ' + (indice + 1));
+      punto.addEventListener('click', () => mostrarProyecto(indice));
+      contenedorPuntos.appendChild(punto);
+      return punto;
+    });
+
+    // Muestra el proyecto con el número indicado y oculta los demás
+    function mostrarProyecto(indice) {
+      // Este cálculo hace el "bucle": después del último vuelve al primero,
+      // y si retrocedes desde el primero, vas al último
+      indiceActual = (indice + diapositivas.length) % diapositivas.length;
+
+      diapositivas.forEach((diapositiva, i) => {
+        diapositiva.classList.toggle('activa', i === indiceActual);
+      });
+      puntos.forEach((punto, i) => {
+        punto.classList.toggle('activo', i === indiceActual);
+      });
+    }
+
+    document.getElementById('flecha-izq').addEventListener('click', () => mostrarProyecto(indiceActual - 1));
+    document.getElementById('flecha-der').addEventListener('click', () => mostrarProyecto(indiceActual + 1));
+
+    mostrarProyecto(0); // empieza en el primer proyecto
 
     // Al hacer clic en el fondo oscuro (fuera de cualquier foto), se cierra todo
     lightbox.addEventListener('click', () => {
