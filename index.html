@@ -304,6 +304,25 @@
     opacity: 0.9;
   }
 
+  /* Casillas con lo que se usó en cada proyecto: van directamente bajo la descripción.
+     Son solo informativas: no se pueden presionar. */
+  .herramientas-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .herramientas-lista li {
+    padding: 5px 14px;
+    font-size: 0.95rem;
+    background: rgba(255, 210, 127, 0.10);
+    border: 1px solid var(--dorado-borde);
+    border-radius: 8px;
+  }
+
   .ver-proyecto {
     flex-shrink: 0;
     background: rgba(255, 210, 127, 0.12);
@@ -778,7 +797,11 @@
             <button type="button" class="ver-proyecto">Ver proyecto</button>
           </div>
           <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
-          <p>Render de Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser, combina diferentes elementos del ambiente, cobrando vida </p>
+          <p>Render de Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser, combina diferentes elementos el cobra vida </p>
+          <ul class="herramientas-lista">
+            <li>Blender</li>
+            <li>VR</li>
+          </ul>
         </div>
 
         <div class="proyecto-card"
@@ -789,6 +812,10 @@
           </div>
           <img class="imagen-proyecto" src="Portafolio_Imagenes/Futurama_png.png" alt="Nave Futurama - render 3D">
           <p>Modelado Low Poly, Basado en serie Futurama, Hecho a su vez con LODS.</p>
+          <ul class="herramientas-lista">
+            <li>Blender</li>
+            <li>LODs</li>
+          </ul>
         </div>
 
         <div class="proyecto-card"
@@ -799,6 +826,10 @@
           </div>
           <img class="imagen-proyecto" src="Portafolio_Imagenes/Modelo_Basico_png.png" alt="Modelo básico de personaje">
           <p>Base de personaje low-poly usada como punto de partida para rigging. Destacado por haberlo hecho en un tiempo relativamente corto (20 min. aprox).</p>
+          <ul class="herramientas-lista">
+            <li>Low Poly</li>
+            <li>Rigging</li>
+          </ul>
         </div>
 
       </div>
