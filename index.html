@@ -938,6 +938,36 @@
 
     // Al cargar la página, se muestran los comentarios guardados
     mostrarRecomendaciones();
+
+    // --- Copiar al portapapeles (tarjeta de correo) ---
+    // Cualquier tarjeta que tenga el atributo data-copiar="texto" copia ese texto al hacer clic
+    document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
+      const etiqueta = tarjeta.lastElementChild;     // el texto de abajo ("Correo")
+      const textoOriginal = etiqueta.textContent;
+
+      tarjeta.addEventListener('click', async (evento) => {
+        evento.preventDefault(); // evita que se abra el programa de correo (mailto:)
+        const texto = tarjeta.dataset.copiar;
+        let copiado = false;
+
+        try {
+          await navigator.clipboard.writeText(texto);
+          copiado = true;
+        } catch (error) {
+          // Respaldo para navegadores que no permiten navigator.clipboard
+          const auxiliar = document.createElement('textarea');
+          auxiliar.value = texto;
+          document.body.appendChild(auxiliar);
+          auxiliar.select();
+          try { copiado = document.execCommand('copy'); } catch (e) { copiado = false; }
+          document.body.removeChild(auxiliar);
+        }
+
+        // Avisa en la misma tarjeta y vuelve al texto normal después de un momento
+        etiqueta.textContent = copiado ? '¡Copiado!' : 'No se pudo copiar';
+        setTimeout(() => { etiqueta.textContent = textoOriginal; }, 1800);
+      });
+    });
   </script>
 
 </body>
