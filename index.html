@@ -323,31 +323,59 @@
     color: #1a1a1a;
   }
 
-  /* Flechas izquierda y derecha */
+  /* Flechas izquierda y derecha:
+     en vez de círculos pequeños, son franjas altas que ocupan todo el alto de la casilla.
+     Así el área para hacer clic (o tocar con el dedo) es mucho más grande y fácil de acertar. */
   .flecha {
     flex: 0 0 auto;
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background: var(--vidrio);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px); /* efecto vidrio esmerilado sobre la foto de fondo */
-    border: 1px solid #ffd27f;
-    box-shadow: var(--brillo-leve);
-    color: #ffd27f;
-    font-family: Arial, sans-serif;
-    font-size: 1.8rem;
-    line-height: 1;
-    padding: 0 0 4px; /* centra visualmente el símbolo dentro del círculo */
+    align-self: stretch;       /* se estira a lo alto, igual que la casilla del proyecto */
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: rgba(255, 210, 127, 0.05);  /* tinte dorado casi invisible: insinúa que es un botón */
+    border: none;
+    border-radius: 16px;
+    color: var(--dorado);
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.2s ease;
   }
 
   .flecha:hover {
-    background: #ffd27f;
-    color: #1a1a1a;
-    box-shadow: var(--brillo-hover);
+    background: rgba(255, 210, 127, 0.14);
   }
+
+  .flecha:active {
+    background: rgba(255, 210, 127, 0.22);  /* respuesta visible al presionar */
+  }
+
+  /* Al navegar con el teclado (Tab), se ve claramente cuál botón está seleccionado */
+  .flecha:focus-visible {
+    outline: 2px solid var(--dorado);
+    outline-offset: 3px;
+  }
+
+  /* El símbolo de la flecha (chevrón dibujado en SVG, se ve nítido en cualquier pantalla) */
+  .flecha svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.8;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .flecha:hover svg {
+    opacity: 1;
+  }
+
+  /* Al pasar el mouse, el chevrón se desliza un poco hacia el lado al que apunta */
+  #flecha-izq:hover svg { transform: translateX(-4px); }
+  #flecha-der:hover svg { transform: translateX(4px); }
 
   /* Puntitos que indican en qué proyecto estás (también se pueden presionar) */
   .carrusel-puntos {
@@ -374,9 +402,18 @@
   }
 
   /* Ajustes para pantallas pequeñas (celular) */
-  @media (max-width: 640px) {
-    .carrusel { gap: 8px; }
-    .flecha { width: 36px; height: 36px; font-size: 1.4rem; }
+  @media (max-width: 720px) {
+    /* En celular, las flechas van DEBAJO de la casilla, repartidas en dos botones anchos
+       fáciles de tocar con el pulgar (así la casilla aprovecha todo el ancho de la pantalla) */
+    .carrusel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .carrusel-pista { grid-column: 1 / -1; grid-row: 1; }
+    .flecha { width: auto; height: 52px; }
+    #flecha-izq { grid-column: 1; grid-row: 2; }
+    #flecha-der { grid-column: 2; grid-row: 2; }
     .proyecto-card { padding: 14px; }
     .proyecto-card h3 { font-size: 1.2rem; }
     .proyecto-encabezado { flex-wrap: wrap; }
@@ -728,7 +765,9 @@
          al hacer clic en la portada o en "Ver proyecto" se abren todas juntas -->
     <div class="carrusel">
 
-      <button type="button" class="flecha" id="flecha-izq" aria-label="Proyecto anterior">&#8249;</button>
+      <button type="button" class="flecha" id="flecha-izq" aria-label="Proyecto anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 4 7 12 15 20"></polyline></svg>
+      </button>
 
       <div class="carrusel-pista">
 
@@ -764,7 +803,9 @@
 
       </div>
 
-      <button type="button" class="flecha" id="flecha-der" aria-label="Proyecto siguiente">&#8250;</button>
+      <button type="button" class="flecha" id="flecha-der" aria-label="Proyecto siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 4 17 12 9 20"></polyline></svg>
+      </button>
 
     </div>
 
