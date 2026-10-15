@@ -24,15 +24,13 @@
 
   /* ============================================
      0.4) PALETA Y AJUSTES GENERALES
-     Para cambiar el color o la intensidad del brillo de TODA la página,
-     basta con editar estas variables.
      ============================================ */
   :root {
     --dorado: #ffd27f;
-    --dorado-borde: rgba(255, 210, 127, 0.38);          /* borde suave de las casillas */
-    --brillo-leve: 0 0 10px rgba(255, 210, 127, 0.12);   /* brillo del contorno (leve) */
-    --brillo-hover: 0 0 16px rgba(255, 210, 127, 0.22);  /* brillo al pasar el mouse */
-    --vidrio: rgba(34, 24, 16, 0.58);                    /* marrón café translúcido para las casillas */
+    --dorado-borde: rgba(255, 210, 127, 0.38);
+    --brillo-leve: 0 0 10px rgba(255, 210, 127, 0.12);
+    --brillo-hover: 0 0 16px rgba(255, 210, 127, 0.22);
+    --vidrio: rgba(34, 24, 16, 0.58);
   }
 
   ::selection {
@@ -54,7 +52,6 @@
     border-bottom: 1px solid rgba(255, 210, 127, 0.15);
   }
 
-  /* Lado izquierdo: nombre + carrera */
   header .marca {
     max-width: 520px;
   }
@@ -74,7 +71,6 @@
     opacity: 0.85;
   }
 
-  /* Lado derecho: menú + luz verde de disponibilidad */
   header .menu {
     display: flex;
     flex-direction: column;
@@ -95,7 +91,6 @@
     color: #ffd27f;
   }
 
-  /* Etiqueta "Disponible para trabajar" con luz verde */
   header .disponible {
     display: inline-flex;
     align-items: center;
@@ -117,7 +112,7 @@
     border-radius: 50%;
     background: #4cd964;
     box-shadow: 0 0 6px rgba(76, 217, 100, 0.8);
-    animation: pulso-verde 2s ease-in-out infinite; /* late suavemente, como una luz de "en línea" */
+    animation: pulso-verde 2s ease-in-out infinite;
   }
 
   @keyframes pulso-verde {
@@ -125,12 +120,10 @@
     50%      { box-shadow: 0 0 10px rgba(76, 217, 100, 0.95); }
   }
 
-  /* Si la persona tiene desactivadas las animaciones en su dispositivo, la luz queda fija */
   @media (prefers-reduced-motion: reduce) {
     .luz-verde { animation: none; }
   }
 
-  /* Celular: el encabezado se apila (nombre arriba, menú abajo) y las letras se ajustan */
   @media (max-width: 720px) {
     header {
       flex-direction: column;
@@ -174,7 +167,7 @@
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg, rgba(25, 15, 8, 0.40), rgba(25, 15, 8, 0.58)); /* capa café cálida */
+    background: linear-gradient(180deg, rgba(25, 15, 8, 0.40), rgba(25, 15, 8, 0.58));
     z-index: 0;
   }
 
@@ -209,7 +202,6 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
   }
 
-  /* Pequeña línea dorada decorativa bajo cada encabezado de sección */
   .caja-centrada p {
     position: relative;
     margin: 0;
@@ -240,18 +232,16 @@
     margin: 20px auto 16px;
   }
 
-  /* Zona central donde se muestra un proyecto a la vez */
   .carrusel-pista {
     flex: 1;
-    min-width: 0; /* evita que una imagen grande ensanche el carrusel */
+    min-width: 0;
   }
 
-  /* Cada proyecto es una "diapositiva": solo la que tiene la clase .activa se ve */
   .proyecto-card {
     display: none;
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px); /* efecto vidrio esmerilado sobre la foto de fondo */
+    backdrop-filter: blur(6px);
     border: 1px solid var(--dorado-borde);
     box-shadow: var(--brillo-leve);
     border-radius: 16px;
@@ -263,13 +253,11 @@
     animation: aparecer-proyecto 0.35s ease;
   }
 
-
   @keyframes aparecer-proyecto {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
 
-  /* Fila superior: título a la izquierda, botón "Ver proyecto" a la derecha */
   .proyecto-encabezado {
     display: flex;
     justify-content: space-between;
@@ -285,12 +273,11 @@
     text-align: left;
   }
 
-  /* Portada grande dentro de un marco rectangular (solo se ve, no es clicable) */
   .imagen-proyecto {
     width: 100%;
-    aspect-ratio: 2 / 1;      /* proporción del marco: el doble de ancho que de alto */
-    max-height: 70vh;         /* evita que sea más alta que la pantalla */
-    object-fit: cover;        /* recorta la imagen para llenar el marco sin deformarla */
+    aspect-ratio: 2 / 1;
+    max-height: 70vh;
+    object-fit: cover;
     border-radius: 12px;
     border: 1px solid var(--dorado-borde);
     display: block;
@@ -304,8 +291,6 @@
     opacity: 0.9;
   }
 
-  /* Casillas con lo que se usó en cada proyecto: van directamente bajo la descripción.
-     Son solo informativas: no se pueden presionar. */
   .herramientas-lista {
     display: flex;
     flex-wrap: wrap;
@@ -342,18 +327,15 @@
     color: #1a1a1a;
   }
 
-  /* Flechas izquierda y derecha:
-     en vez de círculos pequeños, son franjas altas que ocupan todo el alto de la casilla.
-     Así el área para hacer clic (o tocar con el dedo) es mucho más grande y fácil de acertar. */
   .flecha {
     flex: 0 0 auto;
-    align-self: stretch;       /* se estira a lo alto, igual que la casilla del proyecto */
+    align-self: stretch;
     width: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    background: rgba(255, 210, 127, 0.05);  /* tinte dorado casi invisible: insinúa que es un botón */
+    background: rgba(255, 210, 127, 0.05);
     border: none;
     border-radius: 16px;
     color: var(--dorado);
@@ -366,16 +348,14 @@
   }
 
   .flecha:active {
-    background: rgba(255, 210, 127, 0.22);  /* respuesta visible al presionar */
+    background: rgba(255, 210, 127, 0.22);
   }
 
-  /* Al navegar con el teclado (Tab), se ve claramente cuál botón está seleccionado */
   .flecha:focus-visible {
     outline: 2px solid var(--dorado);
     outline-offset: 3px;
   }
 
-  /* El símbolo de la flecha (chevrón dibujado en SVG, se ve nítido en cualquier pantalla) */
   .flecha svg {
     width: 30px;
     height: 30px;
@@ -392,11 +372,9 @@
     opacity: 1;
   }
 
-  /* Al pasar el mouse, el chevrón se desliza un poco hacia el lado al que apunta */
   #flecha-izq:hover svg { transform: translateX(-4px); }
   #flecha-der:hover svg { transform: translateX(4px); }
 
-  /* Puntitos que indican en qué proyecto estás (también se pueden presionar) */
   .carrusel-puntos {
     display: flex;
     justify-content: center;
@@ -420,10 +398,7 @@
     box-shadow: 0 0 6px rgba(255, 210, 127, 0.35);
   }
 
-  /* Ajustes para pantallas pequeñas (celular) */
   @media (max-width: 720px) {
-    /* En celular, las flechas van DEBAJO de la casilla, repartidas en dos botones anchos
-       fáciles de tocar con el pulgar (así la casilla aprovecha todo el ancho de la pantalla) */
     .carrusel {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -452,7 +427,7 @@
   .plataforma-card {
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px); /* efecto vidrio esmerilado sobre la foto de fondo */
+    backdrop-filter: blur(6px);
     border: 1px solid var(--dorado-borde);
     box-shadow: var(--brillo-leve);
     border-radius: 14px;
@@ -506,11 +481,10 @@
     margin: 0 auto 40px;
   }
 
-  /* Formulario para escribir una recomendación */
   .form-recomendacion {
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px); /* efecto vidrio esmerilado sobre la foto de fondo */
+    backdrop-filter: blur(6px);
     border: 1px solid var(--dorado-borde);
     box-shadow: var(--brillo-leve);
     border-radius: 14px;
@@ -571,7 +545,6 @@
     margin: 0;
   }
 
-  /* Lista de comentarios ya publicados */
   .lista-recomendaciones {
     display: flex;
     flex-direction: column;
@@ -582,7 +555,7 @@
   .comentario {
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px); /* efecto vidrio esmerilado sobre la foto de fondo */
+    backdrop-filter: blur(6px);
     border: 1px solid var(--dorado-borde);
     border-radius: 12px;
     padding: 14px 18px;
@@ -606,7 +579,7 @@
     font-size: 0.9rem;
     line-height: 1.4;
     margin: 0;
-    white-space: pre-wrap; /* respeta los saltos de línea que escribió la persona */
+    white-space: pre-wrap;
   }
 
   .sin-comentarios {
@@ -643,7 +616,7 @@
 
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px); /* efecto vidrio esmerilado sobre la foto de fondo */
+    backdrop-filter: blur(6px);
     border: 1px solid var(--dorado-borde);
     border-radius: 14px;
     box-shadow: var(--brillo-leve);
@@ -685,10 +658,10 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.92);
-    display: none;              /* oculto por defecto, se activa con JS */
-    align-items: flex-start;    /* si hay muchas fotos, se acomodan desde arriba */
+    display: none;
+    align-items: flex-start;
     justify-content: center;
-    overflow-y: auto;           /* permite hacer scroll si las fotos no caben */
+    overflow-y: auto;
     padding: 60px 20px;
     z-index: 10;
   }
@@ -697,7 +670,6 @@
     display: flex;
   }
 
-  /* Contenedor donde se insertan todas las fotos del proyecto elegido */
   #lightbox-galeria {
     display: flex;
     flex-wrap: wrap;
@@ -707,7 +679,6 @@
     margin: auto;
   }
 
-  /* Cada foto dentro de la galería: se puede hacer zoom haciendo clic */
   .foto-zoom {
     max-width: 320px;
     max-height: 320px;
@@ -720,8 +691,6 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Al hacer clic una vez, la foto se agranda (zoom).
-     Al volver a hacer clic sobre ella, esta clase se quita y vuelve a su tamaño */
   .foto-zoom.zoom-activo {
     transform: scale(1.6);
     cursor: zoom-out;
@@ -749,15 +718,13 @@
 </head>
 <body>
 
+  <!-- ENCABEZADO -->
   <header>
-
-    <!-- Lado izquierdo: nombre y carrera -->
     <div class="marca">
       <div class="logo">Álvaro Ruiz</div>
       <p class="subtitulo">Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
     </div>
 
-    <!-- Lado derecho: menú y estado de disponibilidad -->
     <div class="menu">
       <nav>
         <a href="index.html">Portafolio</a>
@@ -765,31 +732,24 @@
       </nav>
       <p class="disponible"><span class="luz-verde"></span>Disponible para trabajar</p>
     </div>
-
   </header>
 
   <div class="brillo-mouse"></div>
 
   <div class="contenido">
-
     <h1 class="titulo">Portafolio</h1>
 
+    <!-- CARRUSEL DE PROYECTOS -->
     <div class="caja-centrada">
       <p>Proyectos y Participaciones</p>
     </div>
 
-    <!-- CARRUSEL DE PROYECTOS: se ve un proyecto a la vez en grande.
-         Las flechas cambian de proyecto y al llegar al último vuelven al primero.
-         Cada proyecto guarda TODAS sus fotos en data-fotos (lista en formato JSON):
-         al hacer clic en la portada o en "Ver proyecto" se abren todas juntas -->
     <div class="carrusel">
-
       <button type="button" class="flecha" id="flecha-izq" aria-label="Proyecto anterior">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 4 7 12 15 20"></polyline></svg>
       </button>
 
       <div class="carrusel-pista">
-
         <div class="proyecto-card activa"
              data-fotos='["Portafolio_Imagenes/Render_Geo-Vivo_png.png","Portafolio_Imagenes/GeoVivo2_png.png","Portafolio_Imagenes/GeoVivo3_png.png","Portafolio_Imagenes/GeoVivo4_png.png","Portafolio_Imagenes/GeoVivo5_png.png","Portafolio_Imagenes/GeoVivo6_png.png"]'>
           <div class="proyecto-encabezado">
@@ -832,24 +792,21 @@
             <li>Rigging</li>
           </ul>
         </div>
-
       </div>
 
       <button type="button" class="flecha" id="flecha-der" aria-label="Proyecto siguiente">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 4 17 12 9 20"></polyline></svg>
       </button>
-
     </div>
 
-    <!-- Puntitos de posición (los crea el script) -->
     <div class="carrusel-puntos" id="carrusel-puntos"></div>
 
+    <!-- PLATAFORMAS DE TRABAJO -->
     <div class="caja-centrada">
       <p>Plataformas de trabajo</p>
     </div>
 
     <div class="plataformas">
-
       <div class="plataforma-card">
         <span class="icono-plataforma">
         <img src="Portafolio_Imagenes/Unity_png.png" alt="Logo de Unity">
@@ -881,18 +838,14 @@
         <h3>C#</h3>
         <p>Programacion Basica</p>
       </div>
-
     </div>
 
-    <!-- ============================================
-         RECOMENDACIONES: caja para dejar comentarios
-         ============================================ -->
+    <!-- RECOMENDACIONES -->
     <div class="caja-centrada">
       <p>Recomendaciones</p>
     </div>
 
     <div class="recomendaciones">
-
       <div class="form-recomendacion">
         <input type="text" id="rec-nombre" placeholder="Tu nombre" maxlength="40">
         <textarea id="rec-texto" placeholder="Escribe tu recomendación o comentario..." maxlength="500"></textarea>
@@ -900,20 +853,17 @@
         <button type="button" id="rec-enviar">Enviar recomendación</button>
       </div>
 
-      <!-- Aquí se van agregando los comentarios con JavaScript -->
       <div class="lista-recomendaciones" id="rec-lista"></div>
-
     </div>
-
   </div>
 
+  <!-- CONTACTO -->
   <footer class="contacto">
     <div class="caja-centrada">
       <p>Contacto</p>
     </div>
 
     <div class="contactos-grid">
-
       <a class="contacto-card" href="mailto:Alvaroruizflores25@gmail.com"
          data-copiar="Alvaroruizflores25@gmail.com" title="Copiar correo">
         <span class="icono-contacto">
@@ -942,12 +892,10 @@
         </span>
         <span>+56 9 6264 9569</span>
       </a>
-
     </div>
   </footer>
 
-  <!-- Ventana de pantalla completa: aquí se insertan todas las fotos
-       del proyecto que el usuario elija -->
+  <!-- VENTANA DE PANTALLA COMPLETA (GALERÍA) -->
   <div class="lightbox" id="lightbox">
     <div id="lightbox-galeria"></div>
   </div>
@@ -963,30 +911,23 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxGaleria = document.getElementById('lightbox-galeria');
 
-    // Recibe la lista de fotos de un proyecto y las dibuja todas dentro del lightbox
     function abrirGaleria(listaFotos) {
-      lightboxGaleria.innerHTML = ''; // limpia lo que hubiera antes
+      lightboxGaleria.innerHTML = '';
 
       listaFotos.forEach((rutaFoto) => {
         const foto = document.createElement('img');
         foto.src = rutaFoto;
         foto.className = 'foto-zoom';
 
-        // Al hacer clic en UNA foto, se le agranda (zoom) y se le quita
-        // el zoom a cualquier otra que estuviera ampliada en esa misma galería.
-        // Si se vuelve a hacer clic sobre la misma que ya está en zoom, se le quita.
         foto.addEventListener('click', (evento) => {
-          evento.stopPropagation(); // evita que el clic cierre todo el lightbox
+          evento.stopPropagation();
 
           const yaEstabaActiva = foto.classList.contains('zoom-activo');
 
-          // quita el zoom de TODAS las fotos de esta galería
           lightboxGaleria.querySelectorAll('.foto-zoom').forEach((otraFoto) => {
             otraFoto.classList.remove('zoom-activo');
           });
 
-          // si la foto clickeada no estaba activa, ahora se activa
-          // (si ya estaba activa, queda desactivada: eso logra el "toggle")
           if (!yaEstabaActiva) {
             foto.classList.add('zoom-activo');
           }
@@ -998,18 +939,14 @@
       lightbox.classList.add('activo');
     }
 
-    // Por cada tarjeta de proyecto, se lee su lista de fotos (data-fotos)
-    // y se conecta únicamente el botón "Ver proyecto" (la portada ya no es clicable)
     document.querySelectorAll('.proyecto-card').forEach((tarjeta) => {
       let fotosProyecto;
 
       try {
         fotosProyecto = JSON.parse(tarjeta.dataset.fotos);
       } catch (error) {
-        // Si el JSON de esta tarjeta está mal escrito (falta una coma, comillas, etc.),
-        // se avisa en la consola (F12) en vez de romper el resto de la página
         console.error('data-fotos mal escrito en esta tarjeta:', tarjeta, error);
-        return; // salta esta tarjeta y sigue con las demás
+        return;
       }
 
       tarjeta.querySelector('.ver-proyecto').addEventListener('click', () => {
@@ -1022,7 +959,6 @@
     const contenedorPuntos = document.getElementById('carrusel-puntos');
     let indiceActual = 0;
 
-    // Crea un puntito por cada proyecto; al presionarlo se salta a ese proyecto
     const puntos = Array.from(diapositivas).map((_, indice) => {
       const punto = document.createElement('button');
       punto.type = 'button';
@@ -1033,10 +969,7 @@
       return punto;
     });
 
-    // Muestra el proyecto con el número indicado y oculta los demás
     function mostrarProyecto(indice) {
-      // Este cálculo hace el "bucle": después del último vuelve al primero,
-      // y si retrocedes desde el primero, vas al último
       indiceActual = (indice + diapositivas.length) % diapositivas.length;
 
       diapositivas.forEach((diapositiva, i) => {
@@ -1050,9 +983,8 @@
     document.getElementById('flecha-izq').addEventListener('click', () => mostrarProyecto(indiceActual - 1));
     document.getElementById('flecha-der').addEventListener('click', () => mostrarProyecto(indiceActual + 1));
 
-    mostrarProyecto(0); // empieza en el primer proyecto
+    mostrarProyecto(0);
 
-    // Al hacer clic en el fondo oscuro (fuera de cualquier foto), se cierra todo
     lightbox.addEventListener('click', () => {
       lightbox.classList.remove('activo');
     });
@@ -1064,7 +996,6 @@
     const recEnviar = document.getElementById('rec-enviar');
     const recLista = document.getElementById('rec-lista');
 
-    // Lee los comentarios guardados en este navegador
     function leerRecomendaciones() {
       try {
         return JSON.parse(localStorage.getItem(CLAVE_RECOMENDACIONES)) || [];
@@ -1073,7 +1004,6 @@
       }
     }
 
-    // Guarda la lista completa de comentarios
     function guardarRecomendaciones(lista) {
       try {
         localStorage.setItem(CLAVE_RECOMENDACIONES, JSON.stringify(lista));
@@ -1082,7 +1012,6 @@
       }
     }
 
-    // Dibuja todos los comentarios (los más nuevos arriba)
     function mostrarRecomendaciones() {
       const lista = leerRecomendaciones();
       recLista.innerHTML = '';
@@ -1111,7 +1040,6 @@
         texto.className = 'texto';
         texto.textContent = rec.texto;
 
-        // textContent (en vez de innerHTML) evita que alguien inserte código en un comentario
         caja.appendChild(autor);
         caja.appendChild(fecha);
         caja.appendChild(texto);
@@ -1119,7 +1047,6 @@
       });
     }
 
-    // Al presionar el botón, se agrega el comentario nuevo
     recEnviar.addEventListener('click', () => {
       const nombre = recNombre.value.trim();
       const texto = recTexto.value.trim();
@@ -1142,17 +1069,15 @@
       mostrarRecomendaciones();
     });
 
-    // Al cargar la página, se muestran los comentarios guardados
     mostrarRecomendaciones();
 
     // --- Copiar al portapapeles (tarjeta de correo) ---
-    // Cualquier tarjeta que tenga el atributo data-copiar="texto" copia ese texto al hacer clic
     document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
-      const etiqueta = tarjeta.lastElementChild;     // el texto de abajo ("Correo")
+      const etiqueta = tarjeta.lastElementChild;
       const textoOriginal = etiqueta.textContent;
 
       tarjeta.addEventListener('click', async (evento) => {
-        evento.preventDefault(); // evita que se abra el programa de correo (mailto:)
+        evento.preventDefault();
         const texto = tarjeta.dataset.copiar;
         let copiado = false;
 
@@ -1160,7 +1085,6 @@
           await navigator.clipboard.writeText(texto);
           copiado = true;
         } catch (error) {
-          // Respaldo para navegadores que no permiten navigator.clipboard
           const auxiliar = document.createElement('textarea');
           auxiliar.value = texto;
           document.body.appendChild(auxiliar);
@@ -1169,7 +1093,6 @@
           document.body.removeChild(auxiliar);
         }
 
-        // Avisa en la misma tarjeta y vuelve al texto normal después de un momento
         etiqueta.textContent = copiado ? '¡Copiado!' : 'No se pudo copiar';
         setTimeout(() => { etiqueta.textContent = textoOriginal; }, 1800);
       });
@@ -1178,4 +1101,5 @@
 
 </body>
 </html>
+
 
