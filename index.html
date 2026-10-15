@@ -539,53 +539,25 @@
     color: #1a1a1a;
   }
 
-  .nota-recomendaciones {
+  .nota-recomendaciones,
+  .estado-recomendacion {
     font-size: 0.75rem;
     opacity: 0.65;
     margin: 0;
   }
 
-  .lista-recomendaciones {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 22px;
-  }
-
-  .comentario {
-    background: var(--vidrio);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--dorado-borde);
-    border-radius: 12px;
-    padding: 14px 18px;
-    box-shadow: var(--brillo-leve);
-  }
-
-  .comentario .autor {
-    font-family: 'Agbalumo', cursive;
-    font-size: 1rem;
-    color: #ffd27f;
-    margin: 0 0 4px;
-  }
-
-  .comentario .fecha {
-    font-size: 0.72rem;
-    opacity: 0.6;
-    margin: 0 0 8px;
-  }
-
-  .comentario .texto {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin: 0;
-    white-space: pre-wrap;
-  }
-
-  .sin-comentarios {
-    text-align: center;
+  .estado-recomendacion {
     font-size: 0.85rem;
-    opacity: 0.7;
+    opacity: 0.9;
+  }
+
+  .estado-recomendacion:empty {
+    display: none;
+  }
+
+  .form-recomendacion button:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 
   /* ============================================
@@ -765,7 +737,7 @@
           </ul>
         </div>
 
-        <div class="proyecto-card"
+        <div class="proyecto-card" ///////////////////////////////////////////////
              data-fotos='["Portafolio_Imagenes/Futurama_png.png","Portafolio_Imagenes/Futurama_png_2.png","Portafolio_Imagenes/Futurama_LOD00_PNG.png", "Portafolio_Imagenes/Futurama_LOD01_PNG.png", "Portafolio_Imagenes/Futurama_LOD02_PNG.png", "Portafolio_Imagenes/Torre_LOD00_PNG.png", "Portafolio_Imagenes/Torre_LOD01_PNG.png", "Portafolio_Imagenes/Torre_LOD02_PNG.png", "Portafolio_Imagenes/Auto_LOD00_PNG.png", "Portafolio_Imagenes/Auto_LOD01_PNG.png", "Portafolio_Imagenes/Auto_LOD02_PNG.png"]'>
           <div class="proyecto-encabezado">
             <h3>Proyecto Futurama</h3>
@@ -790,21 +762,6 @@
           <ul class="herramientas-lista">
             <li>Low Poly</li>
             <li>Rigging</li>
-          </ul>
-        </div>
-
-         <div class="proyecto-card"
-             data-fotos='["Portafolio_Imagenes/Barril1_PNG.png","Portafolio_Imagenes/Barril2_PNG.png" ]'>
-          <div class="proyecto-encabezado">
-            <h3>Barril Pirata</h3>
-            <button type="button" class="ver-proyecto">Ver proyecto</button>
-          </div>
-          <img class="imagen-proyecto" src="Portafolio_Imagenes/Barril1_PNG.png" alt="Barril Pirata">
-          <p>Un Objeto hecho durante clases, Esculpido , texturizado y sombreado.</p>
-          <ul class="herramientas-lista">
-            <li>Low Poly</li>
-            <li>Esculpido</li>
-            <li>Asset</li>
           </ul>
         </div>
       </div>
@@ -864,11 +821,11 @@
       <div class="form-recomendacion">
         <input type="text" id="rec-nombre" placeholder="Tu nombre" maxlength="40">
         <textarea id="rec-texto" placeholder="Escribe tu recomendación o comentario..." maxlength="500"></textarea>
-        <p class="nota-recomendaciones">Las recomendaciones se guardan solo en este navegador.</p>
+        <input type="checkbox" id="rec-botcheck" hidden tabindex="-1" autocomplete="off">
+        <p class="nota-recomendaciones">Tu comentario me llega de forma privada y me ayuda a mejorar el portafolio.</p>
+        <p class="estado-recomendacion" id="rec-estado" role="status"></p>
         <button type="button" id="rec-enviar">Enviar recomendación</button>
       </div>
-
-      <div class="lista-recomendaciones" id="rec-lista"></div>
     </div>
   </div>
 
@@ -1005,86 +962,51 @@
     });
 
     // --- Recomendaciones (comentarios) ---
-    const CLAVE_RECOMENDACIONES = 'recomendaciones-portafolio';
+    const CLAVE_WEB3FORMS = '73a8f62c-707f-45b9-9752-cb27c191d361';
     const recNombre = document.getElementById('rec-nombre');
     const recTexto = document.getElementById('rec-texto');
+    const recTrampa = document.getElementById('rec-botcheck');
     const recEnviar = document.getElementById('rec-enviar');
-    const recLista = document.getElementById('rec-lista');
+    const recEstado = document.getElementById('rec-estado');
 
-    function leerRecomendaciones() {
-      try {
-        return JSON.parse(localStorage.getItem(CLAVE_RECOMENDACIONES)) || [];
-      } catch (error) {
-        return [];
-      }
-    }
-
-    function guardarRecomendaciones(lista) {
-      try {
-        localStorage.setItem(CLAVE_RECOMENDACIONES, JSON.stringify(lista));
-      } catch (error) {
-        console.warn('No se pudieron guardar las recomendaciones:', error);
-      }
-    }
-
-    function mostrarRecomendaciones() {
-      const lista = leerRecomendaciones();
-      recLista.innerHTML = '';
-
-      if (lista.length === 0) {
-        const vacio = document.createElement('p');
-        vacio.className = 'sin-comentarios';
-        vacio.textContent = 'Aún no hay recomendaciones. ¡Sé la primera persona en dejar una!';
-        recLista.appendChild(vacio);
-        return;
-      }
-
-      lista.slice().reverse().forEach((rec) => {
-        const caja = document.createElement('div');
-        caja.className = 'comentario';
-
-        const autor = document.createElement('p');
-        autor.className = 'autor';
-        autor.textContent = rec.nombre;
-
-        const fecha = document.createElement('p');
-        fecha.className = 'fecha';
-        fecha.textContent = rec.fecha;
-
-        const texto = document.createElement('p');
-        texto.className = 'texto';
-        texto.textContent = rec.texto;
-
-        caja.appendChild(autor);
-        caja.appendChild(fecha);
-        caja.appendChild(texto);
-        recLista.appendChild(caja);
-      });
-    }
-
-    recEnviar.addEventListener('click', () => {
+    recEnviar.addEventListener('click', async () => {
       const nombre = recNombre.value.trim();
       const texto = recTexto.value.trim();
 
       if (!nombre || !texto) {
-        alert('Escribe tu nombre y tu recomendación antes de enviar.');
+        recEstado.textContent = 'Escribe tu nombre y tu comentario antes de enviar.';
         return;
       }
 
-      const lista = leerRecomendaciones();
-      lista.push({
-        nombre: nombre,
-        texto: texto,
-        fecha: new Date().toLocaleDateString('es-CL')
-      });
-      guardarRecomendaciones(lista);
+      const datos = {
+        access_key: CLAVE_WEB3FORMS,
+        subject: 'Nuevo comentario en tu portafolio',
+        name: nombre,
+        message: texto
+      };
+      if (recTrampa.checked) datos.botcheck = true;
 
-      recNombre.value = '';
-      recTexto.value = '';
-      mostrarRecomendaciones();
+      recEnviar.disabled = true;
+      recEstado.textContent = 'Enviando...';
+
+      try {
+        const respuesta = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(datos)
+        });
+        const resultado = await respuesta.json();
+        if (!resultado.success) throw new Error(resultado.message);
+
+        recNombre.value = '';
+        recTexto.value = '';
+        recEstado.textContent = '¡Gracias! Tu comentario me llegó.';
+      } catch (error) {
+        recEstado.textContent = 'No se pudo enviar. Intenta de nuevo más tarde.';
+      } finally {
+        recEnviar.disabled = false;
+      }
     });
-
-    mostrarRecomendaciones();
 
     // --- Copiar al portapapeles (tarjeta de correo) ---
     document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
