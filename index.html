@@ -25,16 +25,20 @@
   /* ============================================
      0.4) PALETA Y AJUSTES GENERALES
      ============================================ */
+  /* PALETA GRANITO OSCURO: edita estas variables para cambiar toda la página */
   :root {
-    --dorado: #ffd27f;
-    --dorado-borde: rgba(255, 210, 127, 0.38);
-    --brillo-leve: 0 0 10px rgba(255, 210, 127, 0.12);
-    --brillo-hover: 0 0 16px rgba(255, 210, 127, 0.22);
-    --vidrio: rgba(34, 24, 16, 0.58);
+    --acento: #9cc2d6;
+    --acento-borde: rgba(156, 194, 214, 0.38);
+    --brillo-leve: 0 0 10px rgba(156, 194, 214, 0.12);
+    --brillo-hover: 0 0 16px rgba(156, 194, 214, 0.22);
+    --vidrio: rgba(22, 25, 29, 0.62);
+    --g0: #101215;
+    --corte: 5vw; /* altura del corte diagonal */
+    --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.22'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
   ::selection {
-    background: rgba(255, 210, 127, 0.35);
+    background: rgba(156, 194, 214, 0.35);
     color: #fff;
   }
 
@@ -42,14 +46,17 @@
      0.5) BARRA DE NAVEGACIÓN (header)
      ============================================ */
   header {
-    position: relative;
+    position: absolute; /* flota sobre la portada */
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(10, 11, 13, 0.8), transparent);
     z-index: 5;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
     padding: 30px 40px;
-    border-bottom: 1px solid rgba(255, 210, 127, 0.15);
   }
 
   header .marca {
@@ -58,7 +65,7 @@
 
   header .logo {
     font-family: 'Agbalumo', cursive;
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     line-height: 1.1;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
   }
@@ -79,16 +86,16 @@
   }
 
   header nav a {
-    color: #f4f1ea;
+    color: #eceef0;
     text-decoration: none;
-    margin-left: 24px;
+    margin-left: 32px;
     font-family: 'Cutive', serif;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     transition: color 0.2s ease;
   }
 
   header nav a:hover {
-    color: #ffd27f;
+    color: #9cc2d6;
   }
 
   header .disponible {
@@ -131,7 +138,7 @@
       gap: 16px;
       padding: 22px 20px;
     }
-    header .logo { font-size: 1.8rem; }
+    header .logo { font-size: 2.2rem; }
     header .subtitulo { font-size: 0.92rem; }
     header .menu {
       width: 100%;
@@ -140,7 +147,7 @@
     header nav a {
       margin-left: 0;
       margin-right: 20px;
-      font-size: 1.05rem;
+      font-size: 1.5rem;
     }
   }
 
@@ -151,12 +158,12 @@
     margin: 0;
     min-height: 100vh;
     font-family: 'Cutive', serif;
-    color: #f4f1ea;
+    color: #eceef0;
 
-    background-image: url('Portafolio_Imagenes/cafe_fondo_jpg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-color: #14161a;
+    background-image: var(--granito),
+      radial-gradient(ellipse at 20% 0%, rgba(120, 135, 150, 0.14), transparent 60%),
+      linear-gradient(180deg, #1a1d21, #101215);
     background-attachment: fixed;
 
     position: relative;
@@ -167,14 +174,20 @@
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg, rgba(25, 15, 8, 0.40), rgba(25, 15, 8, 0.58));
+    background: linear-gradient(180deg, rgba(10, 11, 13, 0.10), rgba(10, 11, 13, 0.30));
     z-index: 0;
   }
 
+  /* Página principal: empieza con un corte diagonal sobre la portada */
   .contenido {
     position: relative;
     z-index: 5;
-    padding: 40px;
+    margin-top: calc(var(--corte) * -1);
+    padding: calc(var(--corte) + 60px) 40px 40px;
+    clip-path: polygon(0 var(--corte), 100% 0, 100% 100%, 0 100%);
+    background-image: var(--granito),
+      radial-gradient(ellipse at 20% 0%, rgba(120, 135, 150, 0.14), transparent 60%),
+      linear-gradient(180deg, #1a1d21, #101215);
   }
 
   /* ============================================
@@ -217,45 +230,90 @@
     width: 56px;
     height: 2px;
     border-radius: 2px;
-    background: var(--dorado);
+    background: var(--acento);
     opacity: 0.65;
   }
 
   /* ============================================
-     3) CARRUSEL DE PROYECTOS (pantalla grande con flechas)
+     3) CARRUSEL DE PROYECTOS (portada a pantalla completa, de lado a lado)
+     Cambia solo cada 5 segundos; los botones quedan al final de la portada
      ============================================ */
   .carrusel {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    max-width: 1240px;
-    margin: 20px auto 16px;
+    position: relative;
+    height: min(94vh, 900px);
+    min-height: 560px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .carrusel .titulo {
+    position: absolute;
+    top: 190px;
+    left: 6vw;
+    z-index: 4;
+    margin: 0;
+    text-align: left;
+    font-size: 3.4rem;
+  }
+
+  .carrusel .caja-centrada {
+    position: absolute;
+    top: 270px;
+    left: 6vw;
+    z-index: 4;
+    min-height: 0;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 1.6rem;
+  }
+
+  .carrusel .caja-centrada p::after {
+    left: 0;
+    transform: none;
   }
 
   .carrusel-pista {
-    flex: 1;
-    min-width: 0;
+    display: flex;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.25, 1);
   }
 
   .proyecto-card {
-    display: none;
-    background: var(--vidrio);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--dorado-borde);
-    box-shadow: var(--brillo-leve);
-    border-radius: 16px;
-    padding: 30px;
+    position: relative;
+    flex: 0 0 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 6vw calc(var(--corte) + 120px);
   }
 
-  .proyecto-card.activa {
+  .proyecto-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(10, 11, 13, 0.8), rgba(10, 11, 13, 0.2) 60%, transparent),
+      linear-gradient(0deg, rgba(10, 11, 13, 0.85), transparent 50%);
+  }
+
+  .imagen-proyecto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    animation: aparecer-proyecto 0.35s ease;
   }
 
-  @keyframes aparecer-proyecto {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+  .proyecto-encabezado,
+  .proyecto-card p,
+  .herramientas-lista {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
   }
 
   .proyecto-encabezado {
@@ -268,27 +326,18 @@
 
   .proyecto-card h3 {
     font-family: 'Agbalumo', cursive;
-    font-size: 2.1rem;
+    font-size: 3.4rem;
+    line-height: 1.05;
     margin: 0;
     text-align: left;
   }
 
-  .imagen-proyecto {
-    width: 100%;
-    aspect-ratio: 2 / 1;
-    max-height: 70vh;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid var(--dorado-borde);
-    display: block;
-  }
-
   .proyecto-card p {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     line-height: 1.55;
-    margin: 18px 0 0;
+    margin: 0;
     text-align: left;
-    opacity: 0.9;
+    opacity: 0.92;
   }
 
   .herramientas-lista {
@@ -303,117 +352,179 @@
   .herramientas-lista li {
     padding: 5px 14px;
     font-size: 0.95rem;
-    background: rgba(255, 210, 127, 0.10);
-    border: 1px solid var(--dorado-borde);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
   }
 
   .ver-proyecto {
     flex-shrink: 0;
-    background: rgba(255, 210, 127, 0.12);
-    border: 1px solid var(--dorado);
-    color: var(--dorado);
-    padding: 10px 26px;
-    border-radius: 999px;
+    background: var(--acento);
+    border: none;
+    color: #101215;
+    padding: 12px 28px;
+    border-radius: 4px;
     cursor: pointer;
     font-family: 'Cutive', serif;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-    transition: background 0.2s ease, color 0.2s ease;
+    font-size: 1.05rem;
+    transition: background 0.2s ease;
   }
 
   .ver-proyecto:hover {
-    background: #ffd27f;
-    color: #1a1a1a;
+    background: #fff;
   }
 
+  /* Botones de cambio de proyecto: al final de la portada */
   .flecha {
-    flex: 0 0 auto;
-    align-self: stretch;
-    width: 64px;
+    position: absolute;
+    z-index: 4;
+    bottom: calc(var(--corte) + 28px);
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    background: rgba(255, 210, 127, 0.05);
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
     border: none;
-    border-radius: 16px;
-    color: var(--dorado);
+    border-radius: 4px;
+    color: #eceef0;
     cursor: pointer;
     transition: background 0.2s ease;
   }
 
-  .flecha:hover {
-    background: rgba(255, 210, 127, 0.14);
-  }
-
-  .flecha:active {
-    background: rgba(255, 210, 127, 0.22);
-  }
-
-  .flecha:focus-visible {
-    outline: 2px solid var(--dorado);
-    outline-offset: 3px;
-  }
+  .flecha:hover { background: rgba(255, 255, 255, 0.22); }
+  .flecha:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
+  #flecha-izq { left: 6vw; }
+  #flecha-der { left: calc(6vw + 62px); }
 
   .flecha svg {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     fill: none;
     stroke: currentColor;
     stroke-width: 2.4;
     stroke-linecap: round;
     stroke-linejoin: round;
-    opacity: 0.8;
-    transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
-  .flecha:hover svg {
-    opacity: 1;
-  }
-
-  #flecha-izq:hover svg { transform: translateX(-4px); }
-  #flecha-der:hover svg { transform: translateX(4px); }
-
+  /* Barras: la activa se llena en 5 segundos y entonces cambia el proyecto */
   .carrusel-puntos {
+    position: absolute;
+    z-index: 4;
+    left: calc(6vw + 140px);
+    bottom: calc(var(--corte) + 28px);
+    height: 50px;
     display: flex;
-    justify-content: center;
+    align-items: center;
     gap: 10px;
-    margin-bottom: 40px;
   }
 
   .punto {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1px solid #ffd27f;
-    background: transparent;
+    position: relative;
+    width: 56px;
+    height: 22px;
     padding: 0;
+    border: none;
+    background: none;
     cursor: pointer;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .punto.activo {
-    background: #ffd27f;
-    box-shadow: 0 0 6px rgba(255, 210, 127, 0.35);
+  .punto::before,
+  .punto::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 9px;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  .punto::before { background: rgba(255, 255, 255, 0.28); }
+  .punto::after { background: var(--acento); transform: scaleX(0); transform-origin: left; }
+  .punto.activo::after { animation: llenar-punto 5s linear forwards; }
+  .carrusel:hover .punto.activo::after { animation-play-state: paused; } /* se detiene al pasar el mouse */
+
+  @keyframes llenar-punto {
+    to { transform: scaleX(1); }
   }
 
   @media (max-width: 720px) {
-    .carrusel {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .carrusel-pista { grid-column: 1 / -1; grid-row: 1; }
-    .flecha { width: auto; height: 52px; }
-    #flecha-izq { grid-column: 1; grid-row: 2; }
-    #flecha-der { grid-column: 2; grid-row: 2; }
-    .proyecto-card { padding: 14px; }
-    .proyecto-card h3 { font-size: 1.2rem; }
+    :root { --corte: 9vw; }
+    .carrusel .titulo { top: 250px; left: 20px; font-size: 2.4rem; }
+    .carrusel .caja-centrada { display: none; }
+    .proyecto-card { padding: 0 20px calc(var(--corte) + 110px); }
+    .proyecto-card h3 { font-size: 2rem; }
+    .proyecto-card p { font-size: 1.05rem; }
     .proyecto-encabezado { flex-wrap: wrap; }
+    #flecha-izq { left: 20px; }
+    #flecha-der { left: 82px; }
+    .carrusel-puntos { left: 150px; gap: 4px; }
+    .punto { width: 34px; }
+    .contenido { padding-left: 20px; padding-right: 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carrusel-pista { transition: none; }
   }
 
   /* ============================================
+     3.5) CARTA DE PRESENTACIÓN
+     ============================================ */
+  .carta {
+    max-width: 1000px;
+    margin: 0 auto 70px;
+    padding: 36px;
+    background: var(--vidrio);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+
+  .carta-cabecera {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-bottom: 30px;
+  }
+
+  .carta-foto {
+    width: 230px;
+    max-width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .carta h2 {
+    font-family: 'Agbalumo', cursive;
+    font-size: 2.8rem;
+    margin: 0 0 8px;
+  }
+
+  .carta h3 {
+    font-family: 'Agbalumo', cursive;
+    font-size: 2rem;
+    margin: 0 0 14px;
+  }
+
+  .carta p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin: 0 0 14px;
+    opacity: 0.92;
+  }
+
+  .carta .frase-motivacional {
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+/* ============================================
      4) PLATAFORMAS DE TRABAJO
      ============================================ */
   .plataformas {
@@ -428,7 +539,7 @@
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
-    border: 1px solid var(--dorado-borde);
+    border: none;
     box-shadow: var(--brillo-leve);
     border-radius: 14px;
     padding: 22px 18px;
@@ -462,7 +573,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 210, 127, 0.18);
+    background: rgba(156, 194, 214, 0.18);
     border-radius: 50%;
     overflow: hidden;
   }
@@ -485,7 +596,7 @@
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
-    border: 1px solid var(--dorado-borde);
+    border: none;
     box-shadow: var(--brillo-leve);
     border-radius: 14px;
     padding: 20px;
@@ -497,10 +608,10 @@
   .form-recomendacion input,
   .form-recomendacion textarea {
     background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 210, 127, 0.4);
+    border: 1px solid rgba(156, 194, 214, 0.4);
     border-radius: 8px;
     padding: 10px 12px;
-    color: #f4f1ea;
+    color: #eceef0;
     font-family: 'Cutive', serif;
     font-size: 0.95rem;
     outline: none;
@@ -513,8 +624,8 @@
 
   .form-recomendacion input:focus,
   .form-recomendacion textarea:focus {
-    border-color: #ffd27f;
-    box-shadow: 0 0 8px rgba(255, 210, 127, 0.2);
+    border-color: #9cc2d6;
+    box-shadow: 0 0 8px rgba(156, 194, 214, 0.2);
   }
 
   .form-recomendacion input::placeholder,
@@ -525,8 +636,8 @@
   .form-recomendacion button {
     align-self: flex-end;
     background: transparent;
-    border: 1px solid #ffd27f;
-    color: #ffd27f;
+    border: 1px solid #9cc2d6;
+    color: #9cc2d6;
     padding: 8px 20px;
     border-radius: 6px;
     cursor: pointer;
@@ -535,8 +646,8 @@
   }
 
   .form-recomendacion button:hover {
-    background: #ffd27f;
-    color: #1a1a1a;
+    background: #9cc2d6;
+    color: #101215;
   }
 
   .nota-recomendaciones,
@@ -561,66 +672,66 @@
   }
 
   /* ============================================
-     5) CONTACTO (footer con accesos directos)
+     5) CONTACTO (misma estética del encabezado, sin el menú)
      ============================================ */
   .contacto {
     position: relative;
     z-index: 5;
-    margin-top: 20px;
-    padding: 30px 20px 50px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 44px 40px;
+    background: var(--g0);
   }
+
+  .contacto .caja-centrada {
+    min-height: 0;
+    justify-content: flex-start;
+    font-size: 2.8rem;
+  }
+
+  .contacto .caja-centrada p { padding-bottom: 0; }
+  .contacto .caja-centrada p::after { display: none; }
 
   .contactos-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    gap: 12px 34px;
+    justify-content: flex-end;
   }
 
   .contacto-card {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    width: 130px;
-    padding: 18px 10px;
-
-    background: var(--vidrio);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--dorado-borde);
-    border-radius: 14px;
-    box-shadow: var(--brillo-leve);
-
-    color: #f4f1ea;
+    gap: 12px;
+    color: #eceef0;
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 1.8rem;
     font-family: 'Cutive', serif;
-
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: color 0.2s ease;
   }
 
-  .contacto-card:hover {
-    box-shadow: var(--brillo-hover);
-    transform: translateY(-4px);
-  }
+  .contacto-card:hover { color: var(--acento); }
 
   .icono-contacto {
-    width: 44px;
-    height: 44px;
+    width: 34px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 210, 127, 0.18);
-    border-radius: 50%;
-    overflow: hidden;
   }
 
   .icono-contacto img {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     object-fit: contain;
+  }
+
+  @media (max-width: 720px) {
+    .contacto { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
+    .contactos-grid { justify-content: flex-start; }
+    .contacto-card { font-size: 1.4rem; }
   }
 
   /* ============================================
@@ -666,7 +777,7 @@
   .foto-zoom.zoom-activo {
     transform: scale(1.6);
     cursor: zoom-out;
-    box-shadow: 0 0 22px rgba(255, 210, 127, 0.28);
+    box-shadow: 0 0 22px rgba(156, 194, 214, 0.28);
     position: relative;
     z-index: 20;
   }
@@ -681,7 +792,7 @@
     z-index: 2;
     background: radial-gradient(
       circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(255, 224, 170, 0.10),
+      rgba(190, 205, 220, 0.10),
       transparent 80%
     );
   }
@@ -708,15 +819,13 @@
 
   <div class="brillo-mouse"></div>
 
-  <div class="contenido">
+  <!-- CARRUSEL DE PROYECTOS (portada) -->
+  <div class="carrusel">
     <h1 class="titulo">Portafolio</h1>
-
-    <!-- CARRUSEL DE PROYECTOS -->
     <div class="caja-centrada">
       <p>Proyectos y Participaciones</p>
     </div>
 
-    <div class="carrusel">
       <button type="button" class="flecha" id="flecha-izq" aria-label="Proyecto anterior">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 4 7 12 15 20"></polyline></svg>
       </button>
@@ -784,9 +893,29 @@
       <button type="button" class="flecha" id="flecha-der" aria-label="Proyecto siguiente">
         <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="9 4 17 12 9 20"></polyline></svg>
       </button>
-    </div>
-
     <div class="carrusel-puntos" id="carrusel-puntos"></div>
+  </div>
+
+  <div class="contenido">
+
+    <!-- CARTA DE PRESENTACIÓN -->
+    <div class="carta">
+      <div class="carta-cabecera">
+        <img class="carta-foto" src="Portafolio_Imagenes/presentacion_index_alvaro_png.png" alt="Álvaro Ruiz">
+        <div>
+          <h2>Álvaro Ruiz</h2>
+          <p>Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
+        </div>
+      </div>
+      <h3>¿Quién soy?</h3>
+      <p>
+        Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales, en la UBO.
+        Un apasionado por el modelado 3D, la escenografía, la fotografía, hacer contenido y todo lo referente a ello.
+      </p>
+      <p class="frase-motivacional">
+        Mi motivación para aprender es querer crear momentos y emociones para poder dejar una huella en cada persona que conozca de mí y mi trabajo, o también poder hacer feliz a cualquier usuario.
+      </p>
+    </div>
 
     <!-- PLATAFORMAS DE TRABAJO -->
     <div class="caja-centrada">
@@ -952,6 +1081,7 @@
       punto.className = 'punto';
       punto.setAttribute('aria-label', 'Ir al proyecto ' + (indice + 1));
       punto.addEventListener('click', () => mostrarProyecto(indice));
+      punto.addEventListener('animationend', () => mostrarProyecto(indiceActual + 1)); // al llenarse (5 s) pasa al siguiente
       contenedorPuntos.appendChild(punto);
       return punto;
     });
@@ -962,6 +1092,7 @@
       diapositivas.forEach((diapositiva, i) => {
         diapositiva.classList.toggle('activa', i === indiceActual);
       });
+      document.querySelector('.carrusel-pista').style.transform = 'translateX(' + (-100 * indiceActual) + '%)';
       puntos.forEach((punto, i) => {
         punto.classList.toggle('activo', i === indiceActual);
       });
@@ -1053,5 +1184,6 @@
 
 </body>
 </html>
+
 
 
