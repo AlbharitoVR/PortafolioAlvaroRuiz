@@ -476,7 +476,7 @@
   /* Plataformas a la izquierda, ¿Quién soy? a la derecha */
   .presentacion {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 210px 1fr;
     gap: 48px;
     align-items: start;
     max-width: 1300px;
@@ -486,12 +486,34 @@
   .presentacion .plataformas {
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 18px;
+    gap: 12px;
     margin: 20px 0 0;
   }
 
   .presentacion .plataforma-card {
     width: auto;
+    padding: 12px 14px;
+  }
+
+  .presentacion .icono-plataforma {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 6px;
+  }
+
+  .presentacion .icono-plataforma img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .presentacion .plataforma-card h3 {
+    font-size: 0.95rem;
+    margin: 2px 0;
+  }
+
+  .presentacion .plataforma-card p {
+    font-size: 0.72rem;
+    line-height: 1.25;
   }
 
   @media (max-width: 900px) {
