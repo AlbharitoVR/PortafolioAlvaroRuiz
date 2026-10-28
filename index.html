@@ -34,7 +34,7 @@
     --vidrio: rgba(22, 25, 29, 0.62);
     --g0: #101215;
     --corte: 5vw; /* altura del corte diagonal */
-    --boton-auratan: 70px; /* ALTO del botón de imagen Auratan (personalizable) */
+    --boton-auratan: 110px; /* ALTO del botón de imagen Auratan (personalizable) */
     --casilla: 200px; /* ANCHO de cada casilla de plataformas (personalizable) */
     --foto: 420px; /* ANCHO de la foto de presentación (personalizable) */
     --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.22'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -113,7 +113,7 @@
     display: block;
     height: var(--boton-auratan);
     width: auto;
-    max-width: 260px;
+    max-width: 440px;
     object-fit: cover;
     border-radius: 6px;
     transition: filter 0.2s ease;
@@ -124,7 +124,7 @@
     position: absolute;
     inset: 0;
     border-radius: 6px;
-    box-shadow: inset 0 0 18px 12px var(--g0);
+    box-shadow: inset 0 0 16px 8px var(--g0);
     pointer-events: none;
   }
 
@@ -133,7 +133,7 @@
   }
 
   @media (max-width: 720px) {
-    :root { --boton-auratan: 54px; }
+    :root { --boton-auratan: 80px; }
   }
 
   header .disponible {
@@ -278,10 +278,10 @@
      ============================================ */
   .carrusel {
     position: relative;
-    height: min(84vh, 820px);
-    min-height: 520px;
+    height: min(94vh, 980px); /* alto de la portada (personalizable) */
+    min-height: 600px;
     overflow: hidden;
-    background: #000;
+    background: var(--g0);
   }
 
   .carrusel .titulo {
@@ -337,12 +337,14 @@
       linear-gradient(0deg, rgba(10, 11, 13, 0.85), transparent 50%);
   }
 
+  /* La imagen se ve completa (sin recortes), de arriba de la portada hasta el corte diagonal */
   .imagen-proyecto {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: calc(100% - var(--corte));
+    object-fit: contain;
     display: block;
   }
 
@@ -1239,6 +1241,3 @@
 
 </body>
 </html>
-
-
-
