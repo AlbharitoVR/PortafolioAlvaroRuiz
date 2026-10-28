@@ -34,8 +34,8 @@
     --vidrio: rgba(22, 25, 29, 0.62);
     --g0: #101215;
     --corte: 5vw; /* altura del corte diagonal */
+    --alto-portada: min(115vh, 1300px); /* ALTO de la portada con las imágenes de proyectos (personalizable) */
     --boton-auratan: 110px; /* ALTO del botón de imagen Auratan (personalizable) */
-    --boton-auratan-ancho: 330px; /* ANCHO del botón Auratan: lo vuelve rectangular (personalizable) */
     --casilla: 200px; /* ANCHO de cada casilla de plataformas (personalizable) */
     --foto: 420px; /* ANCHO de la foto de presentación (personalizable) */
     --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.22'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
@@ -113,8 +113,9 @@
   header nav a.boton-auratan img {
     display: block;
     height: var(--boton-auratan);
-    width: var(--boton-auratan-ancho);
-    object-fit: cover; /* el logo llena todo el rectángulo */
+    width: auto;
+    max-width: 440px;
+    object-fit: cover;
     border-radius: 6px;
     transition: filter 0.2s ease;
   }
@@ -133,7 +134,7 @@
   }
 
   @media (max-width: 720px) {
-    :root { --boton-auratan: 80px; --boton-auratan-ancho: 240px; }
+    :root { --boton-auratan: 80px; }
   }
 
   header .disponible {
@@ -278,8 +279,8 @@
      ============================================ */
   .carrusel {
     position: relative;
-    height: min(94vh, 980px); /* alto de la portada (personalizable) */
-    min-height: 600px;
+    height: var(--alto-portada);
+    min-height: 700px;
     overflow: hidden;
     background: var(--g0);
   }
@@ -1241,3 +1242,4 @@
 
 </body>
 </html>
+
