@@ -35,6 +35,7 @@
     --vidrio: rgba(22, 25, 29, 0.62);
     --g0: #101215;
     --corte: 5vw; /* altura del corte diagonal */
+    --boton-auratan: 70px; /* ALTO del botón de imagen Auratan (personalizable) */
     --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.22'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
@@ -74,6 +75,7 @@
      ============================================ */
   header {
     position: relative;
+    background: var(--g0); /* mate, igual que el contacto */
     z-index: 5;
     display: flex;
     justify-content: space-between;
@@ -121,6 +123,44 @@
 
   header nav a:hover {
     color: #9cc2d6;
+  }
+
+  /* Botón de imagen "Auratan": degradé negro hacia los contornos */
+  header nav {
+    display: flex;
+    align-items: center;
+  }
+
+  header nav a.boton-auratan {
+    position: relative;
+    line-height: 0;
+  }
+
+  header nav a.boton-auratan img {
+    display: block;
+    height: var(--boton-auratan);
+    width: auto;
+    max-width: 260px;
+    object-fit: cover;
+    border-radius: 6px;
+    transition: filter 0.2s ease;
+  }
+
+  header nav a.boton-auratan::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    box-shadow: inset 0 0 18px 12px var(--g0);
+    pointer-events: none;
+  }
+
+  header nav a.boton-auratan:hover img {
+    filter: brightness(1.2);
+  }
+
+  @media (max-width: 720px) {
+    :root { --boton-auratan: 54px; }
   }
 
   /* Etiqueta "Disponible para trabajar" con luz verde */
@@ -287,8 +327,8 @@
     <!-- Lado derecho: menú y estado de disponibilidad -->
     <div class="menu">
       <nav>
+        <a href="Auratan.html" class="boton-auratan" aria-label="Auratan"><img src="Portafolio_Imagenes/Auratan_png.png" alt="Auratan"></a>
         <a href="index.html">Portafolio</a>
-        <a href="perfil.html">Sobre mí</a>
       </nav>
       <p class="disponible"><span class="luz-verde"></span>Disponible para trabajar</p>
     </div>
@@ -319,3 +359,4 @@
 
 </body>
 </html>
+
