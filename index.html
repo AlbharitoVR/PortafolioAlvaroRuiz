@@ -479,14 +479,9 @@
   .presentacion {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: center; /* las dos mitades quedan centradas entre sí */
     max-width: 1300px;
     margin: 0 auto 70px;
-    padding: 40px;
-    background: var(--vidrio);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
   }
 
   .columna-plataformas {
@@ -523,26 +518,26 @@
     margin: 0 auto 30px;
   }
 
+  /* El texto toma el mismo ancho que la foto, para que todo quede encuadrado */
   .carta h3 {
     font-family: 'Agbalumo', cursive;
     font-size: 2rem;
-    margin: 0 0 14px;
+    max-width: var(--foto);
+    margin: 0 auto 14px;
   }
 
   .carta p {
     font-size: 1.3rem;
     line-height: 1.6;
-    margin: 0 0 14px;
+    max-width: var(--foto);
+    margin: 0 auto;
+    text-align: justify;
+    hyphens: auto;
     opacity: 0.92;
   }
 
-  .carta .frase-motivacional {
-    font-style: italic;
-    opacity: 0.8;
-  }
-
   @media (max-width: 900px) {
-    .presentacion { grid-template-columns: 1fr; padding: 24px; }
+    .presentacion { grid-template-columns: 1fr; }
     .columna-plataformas { padding-right: 0; margin-bottom: 30px; }
     .carta { padding-left: 0; padding-top: 30px; border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.14); }
   }
@@ -976,9 +971,6 @@
         Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales, en la UBO.
         Un apasionado por el modelado 3D, la escenografía, la fotografía, hacer contenido y todo lo referente a ello.
       </p>
-      <p class="frase-motivacional">
-        Mi motivación para aprender es querer crear momentos y emociones para poder dejar una huella en cada persona que conozca de mí y mi trabajo, o también poder hacer feliz a cualquier usuario.
-      </p>
     </div>
 
     </div>
@@ -1211,4 +1203,3 @@
 
 </body>
 </html>
-
