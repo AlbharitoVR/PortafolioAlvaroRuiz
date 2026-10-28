@@ -473,9 +473,33 @@
   /* ============================================
      3.5) CARTA DE PRESENTACIÓN
      ============================================ */
-  .carta {
-    max-width: 1000px;
+  /* Plataformas a la izquierda, ¿Quién soy? a la derecha */
+  .presentacion {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    align-items: start;
+    max-width: 1300px;
     margin: 0 auto 70px;
+  }
+
+  .presentacion .plataformas {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 18px;
+    margin: 20px 0 0;
+  }
+
+  .presentacion .plataforma-card {
+    width: auto;
+  }
+
+  @media (max-width: 900px) {
+    .presentacion { grid-template-columns: 1fr; }
+  }
+
+  .carta {
+    margin: 0;
     padding: 36px;
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
@@ -493,7 +517,7 @@
   }
 
   .carta-foto {
-    width: 230px;
+    width: 360px;
     max-width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
@@ -898,24 +922,7 @@
 
   <div class="contenido">
 
-    <!-- CARTA DE PRESENTACIÓN -->
-    <div class="carta">
-      <div class="carta-cabecera">
-        <img class="carta-foto" src="Portafolio_Imagenes/presentacion_index_alvaro_png.png" alt="Álvaro Ruiz">
-        <div>
-          <h2>Álvaro Ruiz</h2>
-          <p>Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
-        </div>
-      </div>
-      <h3>¿Quién soy?</h3>
-      <p>
-        Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales, en la UBO.
-        Un apasionado por el modelado 3D, la escenografía, la fotografía, hacer contenido y todo lo referente a ello.
-      </p>
-      <p class="frase-motivacional">
-        Mi motivación para aprender es querer crear momentos y emociones para poder dejar una huella en cada persona que conozca de mí y mi trabajo, o también poder hacer feliz a cualquier usuario.
-      </p>
-    </div>
+    <div class="presentacion">
 
     <!-- PLATAFORMAS DE TRABAJO -->
     <div class="caja-centrada">
@@ -954,6 +961,27 @@
         <h3>C#</h3>
         <p>Programacion Basica</p>
       </div>
+    </div>
+
+    <!-- CARTA DE PRESENTACIÓN -->
+    <div class="carta">
+      <div class="carta-cabecera">
+        <img class="carta-foto" src="Portafolio_Imagenes/presentacion_index_alvaro_png.png" alt="Álvaro Ruiz">
+        <div>
+          <h2>Álvaro Ruiz</h2>
+          <p>Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
+        </div>
+      </div>
+      <h3>¿Quién soy?</h3>
+      <p>
+        Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales, en la UBO.
+        Un apasionado por el modelado 3D, la escenografía, la fotografía, hacer contenido y todo lo referente a ello.
+      </p>
+      <p class="frase-motivacional">
+        Mi motivación para aprender es querer crear momentos y emociones para poder dejar una huella en cada persona que conozca de mí y mi trabajo, o también poder hacer feliz a cualquier usuario.
+      </p>
+    </div>
+
     </div>
 
     <!-- RECOMENDACIONES -->
@@ -1184,6 +1212,5 @@
 
 </body>
 </html>
-
 
 
