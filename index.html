@@ -3,30 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Portafolio Álvaro Ruiz - Unity WebGL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
 <style>
 
   /* ============================================
      0) FUENTES PERSONALIZADAS (Agbalumo y Cutive)
      ============================================ */
-  @font-face {
-    font-family: 'Agbalumo';
-    src: url('Fuentes/Agbalumo-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-
-  @font-face {
-    font-family: 'Cutive';
-    src: url('Fuentes/Cutive-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-
   /* ============================================
      0.4) PALETA Y AJUSTES GENERALES
      ============================================ */
   /* PALETA GRANITO OSCURO: edita estas variables para cambiar toda la página */
   :root {
+    --fuente: 'Merienda', cursive; /* fuente de toda la página (Google Fonts) */
     --acento: #9cc2d6;
     --acento-borde: rgba(156, 194, 214, 0.38);
     --brillo-leve: 0 0 10px rgba(156, 194, 214, 0.12);
@@ -65,7 +55,7 @@
   }
 
   header .logo {
-    font-family: 'Agbalumo', cursive;
+    font-family: var(--fuente);
     font-size: 2.8rem;
     line-height: 1.1;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
@@ -73,7 +63,7 @@
 
   header .subtitulo {
     margin: 8px 0 0;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     font-size: 1rem;
     line-height: 1.4;
     opacity: 0.85;
@@ -90,7 +80,7 @@
     color: #eceef0;
     text-decoration: none;
     margin-left: 32px;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     font-size: 1.8rem;
     transition: color 0.2s ease;
   }
@@ -144,7 +134,7 @@
     gap: 8px;
     margin: 0;
     padding: 5px 14px;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     font-size: 0.85rem;
     background: var(--vidrio);
     -webkit-backdrop-filter: blur(6px);
@@ -197,7 +187,7 @@
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     color: #eceef0;
 
     background-color: #14161a;
@@ -237,7 +227,7 @@
     position: relative;
     top: 20px;
 
-    font-family: 'Agbalumo', cursive;
+    font-family: var(--fuente);
     font-size: 2.5rem;
     letter-spacing: 1px;
     text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
@@ -250,7 +240,7 @@
     align-items: center;
     text-align: center;
     min-height: 120px;
-    font-family: 'Agbalumo', cursive;
+    font-family: var(--fuente);
     font-size: 1.8rem;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
   }
@@ -367,7 +357,7 @@
   }
 
   .proyecto-card h3 {
-    font-family: 'Agbalumo', cursive;
+    font-family: var(--fuente);
     font-size: 3.4rem;
     line-height: 1.05;
     margin: 0;
@@ -406,7 +396,7 @@
     padding: 12px 28px;
     border-radius: 4px;
     cursor: pointer;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     font-size: 1.05rem;
     transition: background 0.2s ease;
   }
@@ -560,7 +550,7 @@
 
   /* El texto toma el mismo ancho que la foto, para que todo quede encuadrado */
   .carta h3 {
-    font-family: 'Agbalumo', cursive;
+    font-family: var(--fuente);
     font-size: 2rem;
     max-width: var(--foto);
     margin: 0 auto 14px;
@@ -612,7 +602,7 @@
   }
 
   .plataforma-card h3 {
-    font-family: 'Agbalumo', cursive;
+    font-family: var(--fuente);
     font-size: 1.05rem;
     margin: 6px 0;
   }
@@ -670,7 +660,7 @@
     border-radius: 8px;
     padding: 10px 12px;
     color: #eceef0;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     font-size: 0.95rem;
     outline: none;
   }
@@ -699,7 +689,7 @@
     padding: 8px 20px;
     border-radius: 6px;
     cursor: pointer;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     transition: background 0.2s ease, color 0.2s ease;
   }
 
@@ -766,7 +756,7 @@
     color: #eceef0;
     text-decoration: none;
     font-size: 1.8rem;
-    font-family: 'Cutive', serif;
+    font-family: var(--fuente);
     transition: color 0.2s ease;
   }
 
