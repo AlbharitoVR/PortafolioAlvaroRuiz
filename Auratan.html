@@ -201,7 +201,7 @@
     --separacion: 10px; /* grosor de la línea diagonal entre franjas (deja ver el fondo) */
     position: relative;
     z-index: 5;
-    padding: 0 0 70px;
+    padding: 0;
   }
 
   .banda {
@@ -216,6 +216,12 @@
   }
 
   .banda:first-child { margin-top: 0; }
+
+  /* Última franja: queda pegada al contacto, con el borde de abajo recto para no cortar la imagen */
+  .banda:last-child {
+    padding-bottom: 0;
+    clip-path: polygon(0 var(--corte), 100% 0, 100% 100%, 0 100%);
+  }
 
   /* Inicio: 2/3 imagen (16:9) y 1/3 sinopsis */
   .banda.portada {
@@ -297,6 +303,7 @@
   @media (max-width: 900px) {
     .banda, .banda.portada { display: block; min-height: 0; padding: var(--corte) 0 calc(var(--corte) + 10px); }
     .banda.portada { padding-top: 0; }
+    .banda:last-child { padding-bottom: 0; }
     .banda-imagen, .banda.invertida .banda-imagen {
       position: relative;
       left: auto;
