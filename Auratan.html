@@ -54,11 +54,12 @@
   /* Fondo de Auratán: la imagen nítida, con una capa oscura leve para que el texto se lea (borra el degradé si no la quieres) */
   body::before {
     content: "";
-    position: fixed;
+    position: absolute; /* se mueve con la página: baja y sube con el scroll */
     inset: 0;
     background:
       linear-gradient(180deg, rgba(10, 11, 13, 0.30), rgba(10, 11, 13, 0.45)),
-      url('Portafolio_Imagenes/fondo_auratan_png.png') center / cover no-repeat;
+      url('Portafolio_Imagenes/fondo_auratan_png.png') top center / 100% auto no-repeat; /* ancho de la página, alto proporcional: se extiende hacia abajo */
+    background-color: #14161a;
     z-index: 0;
   }
 
