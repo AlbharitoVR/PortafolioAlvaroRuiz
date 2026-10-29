@@ -199,6 +199,7 @@
      ============================================ */
   .auratan {
     --separacion: 10px; /* grosor de la línea diagonal entre franjas (deja ver el fondo) */
+    --icono-auratan: 120px; /* tamaño de los 2 iconos de arriba a la derecha (personalizable) */
     position: relative;
     z-index: 5;
     padding: 0;
@@ -229,6 +230,24 @@
     min-height: calc(37.5vw + var(--corte));
     padding-top: 0; /* la imagen parte justo bajo el encabezado, sin corte arriba */
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corte)), 0 100%);
+  }
+
+  /* Dos iconos arriba a la derecha de la portada (palacio y ministerio) */
+  .iconos-auratan {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    z-index: 2;
+    display: flex;
+    gap: 14px;
+  }
+
+  .iconos-auratan img {
+    width: var(--icono-auratan);
+    height: var(--icono-auratan);
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
   }
 
   /* La imagen ocupa un lado y se desvanece hacia el texto */
@@ -303,6 +322,8 @@
   @media (max-width: 900px) {
     .banda, .banda.portada { display: block; min-height: 0; padding: var(--corte) 0 calc(var(--corte) + 10px); }
     .banda.portada { padding-top: 0; }
+    .iconos-auratan { top: 8px; right: 8px; gap: 8px; }
+    .iconos-auratan img { width: 64px; height: 64px; }
     .banda:last-child { padding-bottom: 0; }
     .banda-imagen, .banda.invertida .banda-imagen {
       position: relative;
@@ -438,6 +459,11 @@
       <div class="banda-texto">
         <h2>Sinopsis</h2>
         <p>Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser cobra vida a base de AlbedoX.</p>
+      </div>
+      <!-- ICONOS arriba a la derecha -->
+      <div class="iconos-auratan">
+        <img src="Portafolio_Imagenes/ministerio_png.png" alt="Ministerio">
+        <img src="Portafolio_Imagenes/palacio_png.png" alt="Palacio">
       </div>
     </section>
 
