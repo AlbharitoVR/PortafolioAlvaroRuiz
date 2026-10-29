@@ -200,7 +200,7 @@
     --separacion: 10px; /* grosor de la línea diagonal entre franjas (deja ver el fondo) */
     position: relative;
     z-index: 5;
-    padding: 20px 0 70px;
+    padding: 0 0 70px;
   }
 
   .banda {
@@ -220,6 +220,8 @@
   .banda.portada {
     --img-ancho: 66.667%;
     min-height: calc(37.5vw + var(--corte));
+    padding-top: 0; /* la imagen parte justo bajo el encabezado, sin corte arriba */
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corte)), 0 100%);
   }
 
   /* La imagen ocupa un lado y se desvanece hacia el texto */
@@ -294,6 +296,7 @@
 
   @media (max-width: 900px) {
     .banda, .banda.portada { display: block; min-height: 0; padding: var(--corte) 0 calc(var(--corte) + 10px); }
+    .banda.portada { padding-top: 0; }
     .banda-imagen, .banda.invertida .banda-imagen {
       position: relative;
       left: auto;
