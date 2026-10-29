@@ -233,6 +233,16 @@
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corte)), 0 100%);
   }
 
+  /* Enlaces dentro del texto (ej: oyevalentina.com) */
+  .banda-texto a {
+    color: var(--acento);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+
+  .banda-texto a:hover { color: #fff; }
+
   /* Dos iconos arriba a la derecha de la portada (palacio y ministerio) */
   .iconos-auratan {
     position: absolute;
@@ -502,7 +512,7 @@
       </div>
       <div class="banda-texto">
         <h2>Experiencia en Realidad Virtual</h2>
-        <p>Es una Experiencia en VR disponible en el Palacio Pereira. Realizada en el tramo de abril de 2026 a agosto del mismo año. En conjunto con un equipo capaz y la guia Valentina Maldonado oyevalentina.com.</p>
+        <p>Es una Experiencia en VR disponible en el Palacio Pereira. Realizada en el tramo de abril de 2026 a agosto del mismo año. En conjunto con un equipo capaz y la guia Valentina Maldonado <a href="https://oyevalentina.com" target="_blank" rel="noopener">oyevalentina.com</a>.</p>
       </div>
     </section>
 
