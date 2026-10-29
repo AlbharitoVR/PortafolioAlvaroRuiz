@@ -58,7 +58,7 @@
     inset: 0;
     background:
       linear-gradient(180deg, rgba(10, 11, 13, 0.30), rgba(10, 11, 13, 0.45)),
-      url('Portafolio_Imagenes/fondo_auratan_png.png') top center / 100% auto no-repeat; /* ancho de la página, alto proporcional: se extiende hacia abajo */
+      url('Portafolio_Imagenes/fondo_auratan_png.png') top center / 100% auto repeat-y; /* ancho de la página; si la imagen termina, se repite hacia abajo hasta el final */
     background-color: #14161a;
     z-index: 0;
   }
@@ -281,7 +281,7 @@
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
   }
 
-  /* Secciones intercaladas: la imagen pasa al otro lado */
+  /* Zigzag: las secciones con "invertida" llevan la imagen a la derecha y el texto a la izquierda */
   .banda.invertida .banda-imagen {
     left: auto;
     right: 0;
@@ -307,6 +307,70 @@
       mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
     }
     .banda-texto, .banda.invertida .banda-texto { width: auto; margin: 0; padding: 8px 6vw 20px; }
+  }
+
+  /* ============================================
+     CONTACTO (igual al del index: misma estética del encabezado, sin el menú)
+     ============================================ */
+  .contacto {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 44px 40px;
+    background: var(--g0);
+  }
+
+  .contacto .caja-centrada {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 2.8rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .contacto .caja-centrada p { margin: 0; }
+
+  .contactos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 34px;
+    justify-content: flex-end;
+  }
+
+  .contacto-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #eceef0;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-family: var(--fuente);
+    transition: color 0.2s ease;
+  }
+
+  .contacto-card:hover { color: var(--acento); }
+
+  .icono-contacto {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icono-contacto img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 720px) {
+    .contacto { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
+    .contactos-grid { justify-content: flex-start; }
+    .contacto-card { font-size: 1.4rem; }
   }
 
   /* ============================================
@@ -370,8 +434,8 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 1: imagen | texto -->
-    <section class="banda">
+    <!-- SECCIÓN 1: texto | imagen -->
+    <section class="banda invertida">
       <div class="banda-imagen">
         <img src="Portafolio_Imagenes/GeoVivo2_png.png" alt="Auratán, sección 1">
       </div>
@@ -381,8 +445,8 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 2: texto | imagen -->
-    <section class="banda invertida">
+    <!-- SECCIÓN 2: imagen | texto -->
+    <section class="banda">
       <div class="banda-imagen">
         <img src="Portafolio_Imagenes/GeoVivo3_png.png" alt="Auratán, sección 2">
       </div>
@@ -392,8 +456,8 @@
       </div>
     </section>
 
-    <!-- SECCIÓN 3: imagen | texto -->
-    <section class="banda">
+    <!-- SECCIÓN 3: texto | imagen -->
+    <section class="banda invertida">
       <div class="banda-imagen">
         <img src="Portafolio_Imagenes/GeoVivo4_png.png" alt="Auratán, sección 3">
       </div>
@@ -405,6 +469,74 @@
 
   </main>
 
+  <!-- CONTACTO (igual al del index) -->
+  <footer class="contacto">
+    <div class="caja-centrada">
+      <p>Contacto</p>
+    </div>
+
+    <div class="contactos-grid">
+      <a class="contacto-card" href="mailto:Alvaroruizflores25@gmail.com"
+         data-copiar="Alvaroruizflores25@gmail.com" title="Copiar correo">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/Gmail_png.png" alt="Logo de Gmail">
+        </span>
+        <span>Correo</span>
+      </a>
+
+      <a class="contacto-card" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/LinkedIn_png.png" alt="Logo de LinkedIn">
+        </span>
+        <span>LinkedIn</span>
+      </a>
+
+      <a class="contacto-card" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/Insta_png.png" alt="Logo de Instagram">
+        </span>
+        <span>Instagram</span>
+      </a>
+
+      <a class="contacto-card" href="https://wa.me/56962649569" target="_blank" rel="noopener">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/whatsapp_png.png" alt="Logo de Whatsapp">
+        </span>
+        <span>+56 9 6264 9569</span>
+      </a>
+    </div>
+  </footer>
+
+
+
+<script>
+  // --- Copiar al portapapeles (tarjeta de correo) ---
+  document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
+    const etiqueta = tarjeta.lastElementChild;
+    const textoOriginal = etiqueta.textContent;
+
+    tarjeta.addEventListener('click', async (evento) => {
+      evento.preventDefault();
+      const texto = tarjeta.dataset.copiar;
+      let copiado = false;
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        copiado = true;
+      } catch (error) {
+        const auxiliar = document.createElement('textarea');
+        auxiliar.value = texto;
+        document.body.appendChild(auxiliar);
+        auxiliar.select();
+        try { copiado = document.execCommand('copy'); } catch (e) { copiado = false; }
+        document.body.removeChild(auxiliar);
+      }
+
+      etiqueta.textContent = copiado ? '¡Copiado!' : 'No se pudo copiar';
+      setTimeout(() => { etiqueta.textContent = textoOriginal; }, 1800);
+    });
+  });
+</script>
 
 </body>
 </html>
