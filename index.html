@@ -5,7 +5,7 @@
 <title>Portafolio Álvaro Ruiz - Unity WebGL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Saira:wght@100..900&display=swap" rel="stylesheet">
 <style>
 
   /* ============================================
@@ -17,6 +17,7 @@
   /* PALETA GRANITO OSCURO: edita estas variables para cambiar toda la página */
   :root {
     --fuente: 'Merienda', cursive; /* fuente de toda la página (Google Fonts) */
+    --fuente-texto: 'Saira', sans-serif; /* fuente de los párrafos (Google Fonts) */
     --acento: #9cc2d6;
     --acento-borde: rgba(156, 194, 214, 0.38);
     --brillo-leve: 0 0 10px rgba(156, 194, 214, 0.12);
@@ -845,6 +846,16 @@
     );
   }
 
+
+  /* Párrafos con la fuente Saira (los títulos y encabezados siguen con Merienda) */
+  .proyecto-card p,
+  .plataforma-card p,
+  .carta p,
+  .nota-recomendaciones,
+  .estado-recomendacion {
+    font-family: var(--fuente-texto);
+  }
+
 </style>
 </head>
 <body>
@@ -1049,13 +1060,6 @@
         <img src="Portafolio_Imagenes/Insta_png.png" alt="Logo de Instagram">
         </span>
         <span>Instagram</span>
-      </a>
-
-      <a class="contacto-card" href="https://wa.me/56962649569" target="_blank" rel="noopener">
-        <span class="icono-contacto">
-        <img src="Portafolio_Imagenes/whatsapp_png.png" alt="Logo de Whatsapp">
-        </span>
-        <span>+56 9 6264 9569</span>
       </a>
     </div>
   </footer>
