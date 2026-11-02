@@ -6,7 +6,7 @@
 <title>Sobre mí - Álvaro Ruiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Saira:wght@100..900&display=swap" rel="stylesheet">
 <style>
 
   /* Mismas fuentes que la página principal, para mantener la identidad visual */
@@ -18,6 +18,7 @@
   /* PALETA GRANITO OSCURO: edita estas variables para cambiar toda la página */
   :root {
     --fuente: 'Merienda', cursive; /* fuente de toda la página (Google Fonts) */
+    --fuente-texto: 'Saira', sans-serif; /* fuente de los párrafos (Google Fonts) */
     --acento: #9cc2d6;
     --acento-borde: rgba(156, 194, 214, 0.38);
     --brillo-leve: 0 0 10px rgba(156, 194, 214, 0.12);
@@ -303,6 +304,13 @@
     .descripcion { padding: 20px 22px; font-size: 1.05rem; }
   }
 
+
+  /* Párrafos con la fuente Saira (los títulos y encabezados siguen con Merienda) */
+  .descripcion,
+  .frase-motivacional {
+    font-family: var(--fuente-texto);
+  }
+
 </style>
 </head>
 <body>
@@ -350,3 +358,4 @@
 
 </body>
 </html>
+
