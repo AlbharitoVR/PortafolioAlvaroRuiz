@@ -28,7 +28,7 @@
     --alto-portada: min(115vh, 1300px); /* ALTO de la portada con las imágenes de proyectos (personalizable) */
     --boton-auratan: 60px; /* ALTO del botón Auratan; también fija el alto del menú, igual en las 3 páginas */
     --casilla: 200px; /* ANCHO de cada casilla de plataformas (personalizable) */
-    --foto: 420px; /* ANCHO de la foto de presentación (personalizable) */
+    --foto: 340px; /* ANCHO de la foto de presentación (personalizable) */
     --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.22'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
@@ -64,7 +64,7 @@
 
   header .subtitulo {
     margin: 8px 0 0;
-    font-family: var(--fuente);
+    font-family: var(--fuente-texto);
     font-size: 1rem;
     line-height: 1.4;
     opacity: 0.85;
@@ -121,8 +121,14 @@
     pointer-events: none;
   }
 
-  header nav a.boton-auratan:hover img {
-    filter: brightness(1.2);
+  /* Al pasar el mouse: brillo suave verde musgo en el contorno del botón (no en la imagen) */
+  header nav a.boton-auratan {
+    border-radius: 6px;
+    transition: box-shadow 0.25s ease;
+  }
+
+  header nav a.boton-auratan:hover {
+    box-shadow: 0 0 0 1px rgba(138, 154, 91, 0.6), 0 0 12px 2px rgba(138, 154, 91, 0.35);
   }
 
   @media (max-width: 720px) {
@@ -296,6 +302,7 @@
     justify-content: flex-start;
     text-align: left;
     font-size: 1.6rem;
+    font-family: var(--fuente-texto); /* Saira */
   }
 
   .carrusel .caja-centrada p::after {
@@ -552,13 +559,13 @@
   /* El texto toma el mismo ancho que la foto, para que todo quede encuadrado */
   .carta h3 {
     font-family: var(--fuente);
-    font-size: 2rem;
+    font-size: 1.7rem;
     max-width: var(--foto);
     margin: 0 auto 14px;
   }
 
   .carta p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     max-width: var(--foto);
     margin: 0 auto;
@@ -661,7 +668,7 @@
     border-radius: 8px;
     padding: 10px 12px;
     color: #eceef0;
-    font-family: var(--fuente);
+    font-family: var(--fuente-texto);
     font-size: 0.95rem;
     outline: none;
   }
@@ -690,7 +697,7 @@
     padding: 8px 20px;
     border-radius: 6px;
     cursor: pointer;
-    font-family: var(--fuente);
+    font-family: var(--fuente-texto);
     transition: background 0.2s ease, color 0.2s ease;
   }
 
@@ -721,33 +728,40 @@
   }
 
   /* ============================================
-     5) CONTACTO (misma estética del encabezado, sin el menú)
+     CONTACTO (igual en las 3 páginas): más amplio, con el título y los 3 accesos centrados
      ============================================ */
   .contacto {
     position: relative;
     z-index: 5;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    gap: 24px;
-    padding: 44px 40px;
+    justify-content: center;
+    gap: 32px;
+    padding: 90px 40px;
+    text-align: center;
     background: var(--g0);
+    font-family: var(--fuente-texto);
   }
 
   .contacto .caja-centrada {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 0;
-    justify-content: flex-start;
+    font-family: var(--fuente-texto);
     font-size: 2.8rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
   }
 
-  .contacto .caja-centrada p { padding-bottom: 0; }
+  .contacto .caja-centrada p { margin: 0; padding-bottom: 0; }
   .contacto .caja-centrada p::after { display: none; }
 
   .contactos-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 34px;
-    justify-content: flex-end;
+    justify-content: center;
+    gap: 16px 56px;
   }
 
   .contacto-card {
@@ -757,7 +771,7 @@
     color: #eceef0;
     text-decoration: none;
     font-size: 1.8rem;
-    font-family: var(--fuente);
+    font-family: var(--fuente-texto);
     transition: color 0.2s ease;
   }
 
@@ -778,8 +792,7 @@
   }
 
   @media (max-width: 720px) {
-    .contacto { flex-direction: column; align-items: flex-start; padding: 28px 20px; }
-    .contactos-grid { justify-content: flex-start; }
+    .contacto { padding: 60px 20px; gap: 24px; }
     .contacto-card { font-size: 1.4rem; }
   }
 
@@ -854,6 +867,44 @@
   .nota-recomendaciones,
   .estado-recomendacion {
     font-family: var(--fuente-texto);
+  }
+
+
+  /* Palabras clave en negrita */
+  .carta strong,
+  .descripcion strong {
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* Burbujas de contacto bajo el "¿Quién soy?" (solo icono) */
+  .burbujas-contacto {
+    display: flex;
+    gap: 14px;
+    max-width: var(--foto);
+    margin: 20px auto 0;
+  }
+
+  .burbuja {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .burbuja:hover {
+    background: rgba(156, 194, 214, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .burbuja img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
   }
 
 </style>
@@ -1009,9 +1060,16 @@
       </div>
       <h3>¿Quién soy?</h3>
       <p>
-        Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales, en la UBO.
-        Un apasionado por el modelado 3D, la escenografía, la fotografía, hacer contenido y todo lo referente a ello.
+        Estudiante de 5to año de <strong>Ing. en Realidad Virtual</strong> y <strong>Diseño de Juegos Digitales</strong>, en la UBO.
+        Un apasionado por el <strong>modelado 3D</strong>, la <strong>escenografía</strong>, la <strong>fotografía</strong>, <strong>hacer contenido</strong> y todo lo referente a ello.
       </p>
+
+      <!-- BURBUJAS DE CONTACTO: solo el icono, redirigen al contacto -->
+      <div class="burbujas-contacto">
+        <a class="burbuja" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="Portafolio_Imagenes/LinkedIn_png.png" alt=""></a>
+        <a class="burbuja" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener" aria-label="Instagram"><img src="Portafolio_Imagenes/Insta_png.png" alt=""></a>
+        <a class="burbuja" href="mailto:Alvaroruizflores25@gmail.com" aria-label="Correo"><img src="Portafolio_Imagenes/Gmail_png.png" alt=""></a>
+      </div>
     </div>
 
     </div>
@@ -1237,3 +1295,4 @@
 
 </body>
 </html>
+
