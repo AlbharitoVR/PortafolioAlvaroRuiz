@@ -89,7 +89,7 @@
 
   header .subtitulo {
     margin: 8px 0 0;
-    font-family: var(--fuente);
+    font-family: var(--fuente-texto);
     font-size: 1rem;
     line-height: 1.4;
     opacity: 0.85;
@@ -279,6 +279,75 @@
   }
 
   /* ============================================
+     CONTACTO (igual en las 3 páginas): más amplio, con el título y los 3 accesos centrados
+     ============================================ */
+  .contacto {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 90px 40px;
+    text-align: center;
+    background: var(--g0);
+    font-family: var(--fuente-texto);
+  }
+
+  .contacto .caja-centrada {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    font-family: var(--fuente-texto);
+    font-size: 2.8rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .contacto .caja-centrada p { margin: 0; padding-bottom: 0; }
+  .contacto .caja-centrada p::after { display: none; }
+
+  .contactos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 56px;
+  }
+
+  .contacto-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #eceef0;
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-family: var(--fuente-texto);
+    transition: color 0.2s ease;
+  }
+
+  .contacto-card:hover { color: var(--acento); }
+
+  .icono-contacto {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icono-contacto img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 720px) {
+    .contacto { padding: 60px 20px; gap: 24px; }
+    .contacto-card { font-size: 1.4rem; }
+  }
+
+  /* ============================================
      CELULAR: el encabezado se apila (nombre arriba, menú abajo)
      ============================================ */
   @media (max-width: 720px) {
@@ -309,6 +378,14 @@
   .descripcion,
   .frase-motivacional {
     font-family: var(--fuente-texto);
+  }
+
+
+  /* Palabras clave en negrita */
+  .carta strong,
+  .descripcion strong {
+    font-weight: 700;
+    color: #fff;
   }
 
 </style>
@@ -346,8 +423,8 @@
     <!-- DESCRIPCIÓN: contenteditable="true" te permite hacer clic y
          seguir ajustando el texto directo en el navegador -->
     <p class="descripcion" contenteditable="true">
-      Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales, en la UBO.
-      Un apasionado por el modelado 3D, la escenografía, la fotografía, hacer contenido y todo lo referente a ello.
+      Estudiante de 5to año de <strong>Ing. en Realidad Virtual</strong> y <strong>Diseño de Juegos Digitales</strong>, en la UBO.
+      Un apasionado por el <strong>modelado 3D</strong>, la <strong>escenografía</strong>, la <strong>fotografía</strong>, <strong>hacer contenido</strong> y todo lo referente a ello.
     </p>
 
     <p class="frase-motivacional">
@@ -356,6 +433,67 @@
 
   </div>
 
+  <!-- CONTACTO (igual en las 3 páginas) -->
+  <footer class="contacto">
+    <div class="caja-centrada">
+      <p>Contacto</p>
+    </div>
+
+    <div class="contactos-grid">
+      <a class="contacto-card" href="mailto:Alvaroruizflores25@gmail.com"
+         data-copiar="Alvaroruizflores25@gmail.com" title="Copiar correo">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/Gmail_png.png" alt="Logo de Gmail">
+        </span>
+        <span>Correo</span>
+      </a>
+
+      <a class="contacto-card" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/LinkedIn_png.png" alt="Logo de LinkedIn">
+        </span>
+        <span>LinkedIn</span>
+      </a>
+
+      <a class="contacto-card" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener">
+        <span class="icono-contacto">
+        <img src="Portafolio_Imagenes/Insta_png.png" alt="Logo de Instagram">
+        </span>
+        <span>Instagram</span>
+      </a>
+    </div>
+  </footer>
+
+<script>
+  // --- Copiar al portapapeles (tarjeta de correo) ---
+  document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
+    const etiqueta = tarjeta.lastElementChild;
+    const textoOriginal = etiqueta.textContent;
+
+    tarjeta.addEventListener('click', async (evento) => {
+      evento.preventDefault();
+      const texto = tarjeta.dataset.copiar;
+      let copiado = false;
+
+      try {
+        await navigator.clipboard.writeText(texto);
+        copiado = true;
+      } catch (error) {
+        const auxiliar = document.createElement('textarea');
+        auxiliar.value = texto;
+        document.body.appendChild(auxiliar);
+        auxiliar.select();
+        try { copiado = document.execCommand('copy'); } catch (e) { copiado = false; }
+        document.body.removeChild(auxiliar);
+      }
+
+      etiqueta.textContent = copiado ? '¡Copiado!' : 'No se pudo copiar';
+      setTimeout(() => { etiqueta.textContent = textoOriginal; }, 1800);
+    });
+  });
+</script>
+
 </body>
 </html>
+
 
