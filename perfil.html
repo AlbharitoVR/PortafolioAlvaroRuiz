@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sobre mí - Álvaro Ruiz</title>
+<title data-en="About me - Álvaro Ruiz">Sobre mí - Álvaro Ruiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Saira:wght@100..900&display=swap" rel="stylesheet">
@@ -388,6 +388,117 @@
     color: #fff;
   }
 
+
+  /* ============================================
+     INTERRUPTORES (abajo a la derecha): idioma ES / EN y modo noche / día
+     ============================================ */
+  .interruptores {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 60;
+    display: flex;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: var(--vidrio);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
+  }
+
+  .switch {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    width: 84px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid var(--acento-borde);
+    border-radius: 999px;
+    background: rgba(128, 140, 150, 0.14);
+    color: inherit;
+    font-family: var(--fuente-texto);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+  }
+
+  .switch:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
+
+  .sw-et {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.25s ease;
+  }
+
+  /* La perilla desliza y deja resaltada la opción activa */
+  .sw-perilla {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    border-radius: 999px;
+    background: var(--acento);
+    transition: transform 0.25s ease;
+  }
+
+  .switch[aria-checked="true"] .sw-perilla { transform: translateX(100%); }
+  .switch .sw-et:nth-child(1) { color: var(--texto-perilla, #101215); }
+  .switch[aria-checked="true"] .sw-et:nth-child(1) { color: inherit; }
+  .switch[aria-checked="true"] .sw-et:nth-child(2) { color: var(--texto-perilla, #101215); }
+
+  @media (max-width: 720px) {
+    .interruptores { right: 10px; bottom: 10px; gap: 8px; padding: 6px 8px; }
+    .switch { width: 72px; height: 30px; font-size: 0.8rem; }
+  }
+
+  /* ============================================
+     MODO CLARO (granito claro): se activa con el interruptor de sol / luna.
+     Solo redefine colores; el modo noche es el diseño original.
+     ============================================ */
+  html[data-tema="claro"] {
+    color-scheme: light;
+    --acento: #2b6384;
+    --acento-borde: rgba(43, 99, 132, 0.38);
+    --brillo-leve: 0 4px 16px rgba(30, 45, 60, 0.10);
+    --brillo-hover: 0 6px 20px rgba(43, 99, 132, 0.22);
+    --vidrio: rgba(255, 255, 255, 0.72);
+    --g0: #eceff1;
+    --texto-perilla: #fff;
+    --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 -.28'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  html[data-tema="claro"] body {
+    color: #1b2026;
+    background-color: #dfe3e7;
+    background-image: var(--granito),
+      radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.55), transparent 60%),
+      linear-gradient(180deg, #e8ebee, #d6dbe0);
+  }
+
+  html[data-tema="claro"] ::selection { background: rgba(43, 99, 132, 0.28); color: #0e1215; }
+  html[data-tema="claro"] header { box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07); }
+  html[data-tema="claro"] header .logo { text-shadow: none; }
+  html[data-tema="claro"] header nav a { color: #1b2026; }
+  html[data-tema="claro"] header nav a:hover { color: var(--acento); }
+  html[data-tema="claro"] .contacto { box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.07); }
+  html[data-tema="claro"] .contacto .caja-centrada { text-shadow: none; }
+  html[data-tema="claro"] .contacto-card { color: #1b2026; }
+  html[data-tema="claro"] .contacto-card:hover { color: var(--acento); }
+  html[data-tema="claro"] .interruptores { box-shadow: 0 6px 22px rgba(30, 45, 60, 0.18); }
+
+  html[data-tema="claro"] body::before { background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0)); }
+
+  html[data-tema="claro"] .titulo-perfil { text-shadow: none; }
+  html[data-tema="claro"] .descripcion strong { color: #0e1215; }
+
 </style>
 </head>
 <body>
@@ -397,37 +508,37 @@
     <!-- Lado izquierdo: nombre y carrera -->
     <div class="marca">
       <div class="logo">Álvaro Ruiz</div>
-      <p class="subtitulo">Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
+      <p class="subtitulo" data-en="5th-year student in Virtual Reality Engineering and Digital Game Design">Estudiante de 5to año de Ing. en Realidad Virtual y Diseño de Juegos Digitales</p>
     </div>
 
     <!-- Lado derecho: menú y estado de disponibilidad -->
     <div class="menu">
       <nav>
         <a href="Auratan.html" class="boton-auratan" aria-label="Auratan"><img src="Portafolio_Imagenes/Auratan_png.png" alt="Auratan"></a>
-        <a href="index.html">Portafolio</a>
+        <a href="index.html" data-en="Portfolio">Portafolio</a>
       </nav>
-      <p class="disponible"><span class="luz-verde"></span>Disponible para trabajar</p>
+      <p class="disponible" data-en="<span class=&quot;luz-verde&quot;></span>Available for work"><span class="luz-verde"></span>Disponible para trabajar</p>
     </div>
 
   </header>
 
   <div class="contenido">
 
-    <h1 class="titulo-perfil">Sobre mí</h1>
+    <h1 class="titulo-perfil" data-en="About me">Sobre mí</h1>
 
     <!-- FOTO DE PERFIL: fija, rectangular 3:4, con contorno iluminado leve -->
     <div class="foto-perfil-wrapper">
-      <img id="foto-perfil" src="Portafolio_Imagenes/Yisus_jpg.jpg" alt="Foto de perfil">
+      <img id="foto-perfil" src="Portafolio_Imagenes/Yisus_jpg.jpg" alt="Foto de perfil" data-en-alt="Profile photo">
     </div>
 
     <!-- DESCRIPCIÓN: contenteditable="true" te permite hacer clic y
          seguir ajustando el texto directo en el navegador -->
-    <p class="descripcion" contenteditable="true">
+    <p class="descripcion" contenteditable="true" data-en="5th-year student in <strong>Virtual Reality Engineering</strong> and <strong>Digital Game Design</strong> at UBO. Passionate about <strong>3D modeling</strong>, <strong>set design</strong>, <strong>photography</strong>, <strong>content creation</strong> and everything related to them.">
       Estudiante de 5to año de <strong>Ing. en Realidad Virtual</strong> y <strong>Diseño de Juegos Digitales</strong>, en la UBO.
       Un apasionado por el <strong>modelado 3D</strong>, la <strong>escenografía</strong>, la <strong>fotografía</strong>, <strong>hacer contenido</strong> y todo lo referente a ello.
     </p>
 
-    <p class="frase-motivacional">
+    <p class="frase-motivacional" data-en="My motivation to learn is wanting to create moments and emotions, so that I can leave a mark on everyone who gets to know me and my work, or simply make any user happy.">
       Mi motivación para aprender es querer crear momentos y emociones para poder dejar una huella en cada persona que conozca de mí y mi trabajo, o también poder hacer feliz a cualquier usuario.
     </p>
 
@@ -436,28 +547,28 @@
   <!-- CONTACTO (igual en las 3 páginas) -->
   <footer class="contacto">
     <div class="caja-centrada">
-      <p>Contacto</p>
+      <p data-en="Contact">Contacto</p>
     </div>
 
     <div class="contactos-grid">
       <a class="contacto-card" href="mailto:Alvaroruizflores25@gmail.com"
-         data-copiar="Alvaroruizflores25@gmail.com" title="Copiar correo">
+         data-copiar="Alvaroruizflores25@gmail.com" title="Copiar correo" data-en-title="Copy email">
         <span class="icono-contacto">
-        <img src="Portafolio_Imagenes/Gmail_png.png" alt="Logo de Gmail">
+        <img src="Portafolio_Imagenes/Gmail_png.png" alt="Logo de Gmail" data-en-alt="Gmail logo">
         </span>
-        <span>Correo</span>
+        <span data-en="Email">Correo</span>
       </a>
 
       <a class="contacto-card" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener">
         <span class="icono-contacto">
-        <img src="Portafolio_Imagenes/LinkedIn_png.png" alt="Logo de LinkedIn">
+        <img src="Portafolio_Imagenes/LinkedIn_png.png" alt="Logo de LinkedIn" data-en-alt="LinkedIn logo">
         </span>
         <span>LinkedIn</span>
       </a>
 
       <a class="contacto-card" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener">
         <span class="icono-contacto">
-        <img src="Portafolio_Imagenes/Insta_png.png" alt="Logo de Instagram">
+        <img src="Portafolio_Imagenes/Insta_png.png" alt="Logo de Instagram" data-en-alt="Instagram logo">
         </span>
         <span>Instagram</span>
       </a>
@@ -468,10 +579,10 @@
   // --- Copiar al portapapeles (tarjeta de correo) ---
   document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
     const etiqueta = tarjeta.lastElementChild;
-    const textoOriginal = etiqueta.textContent;
 
     tarjeta.addEventListener('click', async (evento) => {
       evento.preventDefault();
+      const textoOriginal = etiqueta.innerHTML;
       const texto = tarjeta.dataset.copiar;
       let copiado = false;
 
@@ -487,13 +598,70 @@
         document.body.removeChild(auxiliar);
       }
 
-      etiqueta.textContent = copiado ? '¡Copiado!' : 'No se pudo copiar';
-      setTimeout(() => { etiqueta.textContent = textoOriginal; }, 1800);
+      etiqueta.textContent = copiado ? tr('¡Copiado!', 'Copied!') : tr('No se pudo copiar', 'Could not copy');
+      setTimeout(() => { etiqueta.innerHTML = textoOriginal; }, 1800);
     });
   });
 </script>
 
+  <!-- INTERRUPTORES (abajo a la derecha): idioma ES / EN y modo noche / día.
+       Siempre parten en español y modo noche. -->
+  <div class="interruptores">
+    <button type="button" class="switch" id="switch-idioma" role="switch" aria-checked="false"
+            aria-label="Idioma: inglés" data-en-aria-label="Language: English">
+      <span class="sw-et">ES</span><span class="sw-et">EN</span><span class="sw-perilla"></span>
+    </button>
+    <button type="button" class="switch" id="switch-tema" role="switch" aria-checked="false"
+            aria-label="Modo claro" data-en-aria-label="Light mode">
+      <span class="sw-et">🌙</span><span class="sw-et">☀️</span><span class="sw-perilla"></span>
+    </button>
+  </div>
+
+<script>
+  // --- Idioma (ES / EN) y tema (noche / día): siempre parte en español y en modo noche ---
+  (function () {
+    const raiz = document.documentElement;
+    const ATRIBUTOS = ['alt', 'placeholder', 'title', 'aria-label'];
+
+    // tr('español', 'english'): devuelve el texto del idioma activo (lo usan los mensajes de los scripts)
+    window.tr = (es, en) => (raiz.lang === 'en' ? en : es);
+
+    // Cada elemento con data-en guarda su traducción; el original en español se respalda al primer cambio
+    function traducir(idioma) {
+      raiz.lang = idioma;
+      document.querySelectorAll('[data-en]').forEach((el) => {
+        if (el.dataset.es === undefined) el.dataset.es = el.innerHTML;
+        el.innerHTML = idioma === 'en' ? el.dataset.en : el.dataset.es;
+      });
+      ATRIBUTOS.forEach((a) => {
+        document.querySelectorAll('[data-en-' + a + ']').forEach((el) => {
+          if (!el.hasAttribute('data-es-' + a)) el.setAttribute('data-es-' + a, el.getAttribute(a));
+          el.setAttribute(a, el.getAttribute((idioma === 'en' ? 'data-en-' : 'data-es-') + a));
+        });
+      });
+      document.querySelectorAll('.punto').forEach((p, i) => {
+        p.setAttribute('aria-label', (idioma === 'en' ? 'Go to project ' : 'Ir al proyecto ') + (i + 1));
+      });
+    }
+
+    const swIdioma = document.getElementById('switch-idioma');
+    const swTema = document.getElementById('switch-tema');
+
+    swIdioma.addEventListener('click', () => {
+      const ingles = swIdioma.getAttribute('aria-checked') !== 'true';
+      swIdioma.setAttribute('aria-checked', ingles ? 'true' : 'false');
+      traducir(ingles ? 'en' : 'es');
+    });
+
+    swTema.addEventListener('click', () => {
+      const claro = swTema.getAttribute('aria-checked') !== 'true';
+      swTema.setAttribute('aria-checked', claro ? 'true' : 'false');
+      if (claro) raiz.setAttribute('data-tema', 'claro');
+      else raiz.removeAttribute('data-tema');
+    });
+  })();
+</script>
+
 </body>
 </html>
-
 
