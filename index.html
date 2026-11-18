@@ -7,42 +7,34 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Saira:wght@100..900&display=swap" rel="stylesheet">
 <style>
-
-  /* ============================================
-     0) FUENTES PERSONALIZADAS (Agbalumo y Cutive)
-     ============================================ */
-  /* ============================================
-     0.4) PALETA Y AJUSTES GENERALES
-     ============================================ */
-  /* PALETA GRANITO OSCURO: edita estas variables para cambiar toda la página */
+  /* PALETA Y VARIABLES */
   :root {
-    --fuente: 'Merienda', cursive; /* fuente de toda la página (Google Fonts) */
-    --fuente-texto: 'Saira', sans-serif; /* fuente de los párrafos (Google Fonts) */
+    --fuente: 'Merienda', cursive;
+    --fuente-texto: 'Saira', sans-serif;
     --acento: #9cc2d6;
     --acento-borde: rgba(156, 194, 214, 0.38);
     --brillo-leve: 0 0 10px rgba(156, 194, 214, 0.12);
     --brillo-hover: 0 0 16px rgba(156, 194, 214, 0.22);
     --vidrio: rgba(22, 25, 29, 0.62);
     --g0: #101215;
-    --corte: 5vw; /* altura del corte diagonal */
-    --alto-portada: min(115vh, 1300px); /* ALTO de la portada con las imágenes de proyectos (personalizable) */
-    --boton-auratan: 60px; /* ALTO del botón Auratan; también fija el alto del menú, igual en las 3 páginas */
-    --casilla: 200px; /* ANCHO de cada casilla de plataformas (personalizable) */
-    --foto: 340px; /* ANCHO de la foto de presentación (personalizable) */
+    --corte: 5vw;
+    --alto-portada: min(115vh, 1300px);
+    --boton-auratan: 60px;
+    --casilla: 200px;
+    --foto: 340px;
     --granito: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 -.22'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
+  /* SELECCIÓN DE TEXTO */
   ::selection {
     background: rgba(156, 194, 214, 0.35);
     color: #fff;
   }
 
-  /* ============================================
-     0.5) BARRA DE NAVEGACIÓN (header)
-     ============================================ */
+  /* ENCABEZADO */
   header {
     position: relative;
-    background: var(--g0); /* mate, sin fondo de imágenes, igual que el contacto */
+    background: var(--g0);
     z-index: 5;
     display: flex;
     justify-content: space-between;
@@ -90,11 +82,11 @@
     color: #9cc2d6;
   }
 
-  /* Botón de imagen "Auratan": degradé negro hacia los contornos */
+  /* BOTÓN AURATAN */
   header nav {
     display: flex;
     align-items: center;
-    height: var(--boton-auratan); /* mismo alto de menú en todas las páginas */
+    height: var(--boton-auratan);
   }
 
   header nav a.boton-auratan {
@@ -121,7 +113,7 @@
     pointer-events: none;
   }
 
-  /* Al pasar el mouse: brillo suave verde musgo en el contorno del botón (no en la imagen) */
+  /* BOTÓN AURATAN: BRILLO VERDE MUSGO */
   header nav a.boton-auratan {
     border-radius: 6px;
     transition: box-shadow 0.25s ease;
@@ -188,21 +180,17 @@
     }
   }
 
-  /* ============================================
-     1) FOTO DE FONDO PARA TODA LA PÁGINA
-     ============================================ */
+  /* FONDO DE LA PÁGINA */
   body {
     margin: 0;
     min-height: 100vh;
     font-family: var(--fuente);
     color: #eceef0;
-
     background-color: #14161a;
     background-image: var(--granito),
       radial-gradient(ellipse at 20% 0%, rgba(120, 135, 150, 0.14), transparent 60%),
       linear-gradient(180deg, #1a1d21, #101215);
     background-attachment: fixed;
-
     position: relative;
     overflow-x: hidden;
   }
@@ -215,7 +203,7 @@
     z-index: 0;
   }
 
-  /* Página principal: empieza con un corte diagonal sobre la portada */
+  /* PÁGINA PRINCIPAL */
   .contenido {
     position: relative;
     z-index: 5;
@@ -227,13 +215,10 @@
       linear-gradient(180deg, #1a1d21, #101215);
   }
 
-  /* ============================================
-     2) TÍTULO Y ENCABEZADOS DE SECCIÓN
-     ============================================ */
+  /* TÍTULOS */
   .titulo {
     position: relative;
     top: 20px;
-
     font-family: var(--fuente);
     font-size: 2.5rem;
     letter-spacing: 1px;
@@ -271,10 +256,7 @@
     opacity: 0.65;
   }
 
-  /* ============================================
-     3) CARRUSEL DE PROYECTOS (portada a pantalla completa, de lado a lado)
-     Cambia solo cada 5 segundos; los botones quedan al final de la portada
-     ============================================ */
+  /* CARRUSEL DE PROYECTOS */
   .carrusel {
     position: relative;
     height: var(--alto-portada);
@@ -302,7 +284,7 @@
     justify-content: flex-start;
     text-align: left;
     font-size: 1.6rem;
-    font-family: var(--fuente-texto); /* Saira */
+    font-family: var(--fuente-texto);
   }
 
   .carrusel .caja-centrada p::after {
@@ -337,7 +319,6 @@
       linear-gradient(0deg, rgba(10, 11, 13, 0.85), transparent 50%);
   }
 
-  /* La imagen se ve completa (sin recortes), de arriba de la portada hasta el corte diagonal */
   .imagen-proyecto {
     position: absolute;
     top: 0;
@@ -413,7 +394,7 @@
     background: #fff;
   }
 
-  /* Botones de cambio de proyecto: al final de la portada */
+  /* CARRUSEL: BOTONES */
   .flecha {
     position: absolute;
     z-index: 4;
@@ -449,7 +430,7 @@
     stroke-linejoin: round;
   }
 
-  /* Barras: la activa se llena en 5 segundos y entonces cambia el proyecto */
+  /* CARRUSEL: BARRAS DE TIEMPO */
   .carrusel-puntos {
     position: absolute;
     z-index: 4;
@@ -485,7 +466,7 @@
   .punto::before { background: rgba(255, 255, 255, 0.28); }
   .punto::after { background: var(--acento); transform: scaleX(0); transform-origin: left; }
   .punto.activo::after { animation: llenar-punto 5s linear forwards; }
-  .carrusel:hover .punto.activo::after { animation-play-state: paused; } /* se detiene al pasar el mouse */
+  .carrusel:hover .punto.activo::after { animation-play-state: paused; }
 
   @keyframes llenar-punto {
     to { transform: scaleX(1); }
@@ -510,14 +491,11 @@
     .carrusel-pista { transition: none; }
   }
 
-  /* ============================================
-     3.5) CARTA DE PRESENTACIÓN
-     ============================================ */
-  /* Sección partida en 2: plataformas a la izquierda, foto + ¿Quién soy? a la derecha */
+  /* CARTA DE PRESENTACIÓN */
   .presentacion {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: center; /* las dos mitades quedan centradas entre sí */
+    align-items: center;
     max-width: 1300px;
     margin: 0 auto 70px;
   }
@@ -526,7 +504,6 @@
     padding-right: 40px;
   }
 
-  /* 4 casillas en 2 x 2, con el ancho que definas en --casilla */
   .presentacion .plataformas {
     display: grid;
     grid-template-columns: repeat(2, var(--casilla));
@@ -540,7 +517,6 @@
     box-sizing: border-box;
   }
 
-  /* Lado derecho, separado por una línea vertical */
   .carta {
     padding-left: 40px;
     border-left: 1px solid rgba(255, 255, 255, 0.14);
@@ -556,7 +532,6 @@
     margin: 0 auto 30px;
   }
 
-  /* El texto toma el mismo ancho que la foto, para que todo quede encuadrado */
   .carta h3 {
     font-family: var(--fuente);
     font-size: 1.7rem;
@@ -580,9 +555,7 @@
     .carta { padding-left: 0; padding-top: 30px; border-left: none; border-top: 1px solid rgba(255, 255, 255, 0.14); }
   }
 
-  /* ============================================
-     4) PLATAFORMAS DE TRABAJO
-     ============================================ */
+  /* PLATAFORMAS DE TRABAJO */
   .plataformas {
     display: flex;
     flex-wrap: wrap;
@@ -640,9 +613,7 @@
     object-fit: contain;
   }
 
-  /* ============================================
-     4.5) RECOMENDACIONES (caja de comentarios)
-     ============================================ */
+  /* RECOMENDACIONES */
   .recomendaciones {
     max-width: 700px;
     margin: 0 auto 40px;
@@ -727,9 +698,7 @@
     cursor: default;
   }
 
-  /* ============================================
-     CONTACTO (igual en las 3 páginas): más amplio, con el título y los 3 accesos centrados
-     ============================================ */
+  /* CONTACTO */
   .contacto {
     position: relative;
     z-index: 5;
@@ -796,9 +765,7 @@
     .contacto-card { font-size: 1.4rem; }
   }
 
-  /* ============================================
-     6) GALERÍA DE PANTALLA COMPLETA (varias fotos por proyecto)
-     ============================================ */
+  /* GALERÍA DE PANTALLA COMPLETA */
   .lightbox {
     position: fixed;
     inset: 0;
@@ -844,9 +811,7 @@
     z-index: 20;
   }
 
-  /* ============================================
-     7) EFECTO DE BRILLO QUE SIGUE AL MOUSE
-     ============================================ */
+  /* BRILLO QUE SIGUE AL MOUSE */
   .brillo-mouse {
     position: fixed;
     inset: 0;
@@ -859,8 +824,7 @@
     );
   }
 
-
-  /* Párrafos con la fuente Saira (los títulos y encabezados siguen con Merienda) */
+  /* FUENTE DE LOS PÁRRAFOS */
   .proyecto-card p,
   .plataforma-card p,
   .carta p,
@@ -869,15 +833,14 @@
     font-family: var(--fuente-texto);
   }
 
-
-  /* Palabras clave en negrita */
+  /* PALABRAS CLAVE EN NEGRITA */
   .carta strong,
   .descripcion strong {
     font-weight: 700;
     color: #fff;
   }
 
-  /* Burbujas de contacto bajo el "¿Quién soy?" (solo icono) */
+  /* BURBUJAS DE CONTACTO */
   .burbujas-contacto {
     display: flex;
     gap: 14px;
@@ -907,10 +870,7 @@
     object-fit: contain;
   }
 
-
-  /* ============================================
-     INTERRUPTORES (abajo a la derecha): idioma ES / EN y modo noche / día
-     ============================================ */
+  /* INTERRUPTORES DE IDIOMA Y TEMA */
   .interruptores {
     position: fixed;
     right: 18px;
@@ -956,7 +916,6 @@
     transition: color 0.25s ease;
   }
 
-  /* La perilla desliza y deja resaltada la opción activa */
   .sw-perilla {
     position: absolute;
     top: 3px;
@@ -978,10 +937,7 @@
     .switch { width: 72px; height: 30px; font-size: 0.8rem; }
   }
 
-  /* ============================================
-     MODO CLARO (granito claro): se activa con el interruptor de sol / luna.
-     Solo redefine colores; el modo noche es el diseño original.
-     ============================================ */
+  /* MODO CLARO */
   html[data-tema="claro"] {
     color-scheme: light;
     --acento: #2b6384;
@@ -1021,7 +977,6 @@
       linear-gradient(180deg, #e8ebee, #d6dbe0);
   }
 
-  /* La portada se mantiene oscura (fotos y textos claros) para que los proyectos se vean igual de bien */
   html[data-tema="claro"] .carrusel { background: #101215; color: #eceef0; }
   html[data-tema="claro"] .carrusel .titulo,
   html[data-tema="claro"] .carrusel .caja-centrada { text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45); }
@@ -1048,7 +1003,6 @@
   html[data-tema="claro"] .form-recomendacion textarea:focus { border-color: var(--acento); box-shadow: 0 0 8px rgba(43, 99, 132, 0.22); }
   html[data-tema="claro"] .form-recomendacion button { border-color: var(--acento); color: var(--acento); }
   html[data-tema="claro"] .form-recomendacion button:hover { background: var(--acento); color: #fff; }
-
 </style>
 </head>
 <body>
@@ -1071,7 +1025,7 @@
 
   <div class="brillo-mouse"></div>
 
-  <!-- CARRUSEL DE PROYECTOS (portada) -->
+  <!-- CARRUSEL DE PROYECTOS -->
   <div class="carrusel">
     <h1 class="titulo" data-en="Portfolio">Portafolio</h1>
     <div class="caja-centrada">
@@ -1206,7 +1160,7 @@
         Un apasionado por el <strong>modelado 3D</strong>, la <strong>escenografía</strong>, la <strong>fotografía</strong>, <strong>hacer contenido</strong> y todo lo referente a ello.
       </p>
 
-      <!-- BURBUJAS DE CONTACTO: solo el icono, redirigen al contacto -->
+      <!-- BURBUJAS DE CONTACTO -->
       <div class="burbujas-contacto">
         <a class="burbuja" href="https://www.linkedin.com/in/alvaro-ignacio-ruiz-flores-95747b277/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="Portafolio_Imagenes/LinkedIn_png.png" alt=""></a>
         <a class="burbuja" href="https://instagram.com/Alvorion.bb" target="_blank" rel="noopener" aria-label="Instagram"><img src="Portafolio_Imagenes/Insta_png.png" alt=""></a>
@@ -1264,19 +1218,19 @@
     </div>
   </footer>
 
-  <!-- VENTANA DE PANTALLA COMPLETA (GALERÍA) -->
+  <!-- GALERÍA DE PANTALLA COMPLETA -->
   <div class="lightbox" id="lightbox">
     <div id="lightbox-galeria"></div>
   </div>
 
   <script>
-    // --- Brillo que sigue al mouse ---
+// BRILLO QUE SIGUE AL MOUSE
     document.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px');
       document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px');
     });
 
-    // --- Galería de pantalla completa ---
+// GALERÍA DE PANTALLA COMPLETA
     const lightbox = document.getElementById('lightbox');
     const lightboxGaleria = document.getElementById('lightbox-galeria');
 
@@ -1323,7 +1277,7 @@
       });
     });
 
-    // --- Carrusel de proyectos ---
+// CARRUSEL DE PROYECTOS
     const diapositivas = document.querySelectorAll('.proyecto-card');
     const contenedorPuntos = document.getElementById('carrusel-puntos');
     let indiceActual = 0;
@@ -1334,7 +1288,7 @@
       punto.className = 'punto';
       punto.setAttribute('aria-label', 'Ir al proyecto ' + (indice + 1));
       punto.addEventListener('click', () => mostrarProyecto(indice));
-      punto.addEventListener('animationend', () => mostrarProyecto(indiceActual + 1)); // al llenarse (5 s) pasa al siguiente
+      punto.addEventListener('animationend', () => mostrarProyecto(indiceActual + 1));
       contenedorPuntos.appendChild(punto);
       return punto;
     });
@@ -1360,7 +1314,7 @@
       lightbox.classList.remove('activo');
     });
 
-    // --- Recomendaciones (comentarios) ---
+// RECOMENDACIONES
     const CLAVE_WEB3FORMS = '73a8f62c-707f-45b9-9752-cb27c191d361';
     const recNombre = document.getElementById('rec-nombre');
     const recTexto = document.getElementById('rec-texto');
@@ -1407,7 +1361,7 @@
       }
     });
 
-    // --- Copiar al portapapeles (tarjeta de correo) ---
+// COPIAR CORREO
     document.querySelectorAll('[data-copiar]').forEach((tarjeta) => {
       const etiqueta = tarjeta.lastElementChild;
 
@@ -1433,10 +1387,10 @@
         setTimeout(() => { etiqueta.innerHTML = textoOriginal; }, 1800);
       });
     });
-  </script>
 
-  <!-- INTERRUPTORES (abajo a la derecha): idioma ES / EN y modo noche / día.
-       Siempre parten en español y modo noche. -->
+</script>
+
+  <!-- INTERRUPTORES DE IDIOMA Y TEMA -->
   <div class="interruptores">
     <button type="button" class="switch" id="switch-idioma" role="switch" aria-checked="false"
             aria-label="Idioma: inglés" data-en-aria-label="Language: English">
@@ -1449,15 +1403,13 @@
   </div>
 
 <script>
-  // --- Idioma (ES / EN) y tema (noche / día): siempre parte en español y en modo noche ---
+// IDIOMA Y TEMA
   (function () {
     const raiz = document.documentElement;
     const ATRIBUTOS = ['alt', 'placeholder', 'title', 'aria-label'];
 
-    // tr('español', 'english'): devuelve el texto del idioma activo (lo usan los mensajes de los scripts)
     window.tr = (es, en) => (raiz.lang === 'en' ? en : es);
 
-    // Cada elemento con data-en guarda su traducción; el original en español se respalda al primer cambio
     function traducir(idioma) {
       raiz.lang = idioma;
       document.querySelectorAll('[data-en]').forEach((el) => {
@@ -1495,4 +1447,3 @@
 
 </body>
 </html>
-
