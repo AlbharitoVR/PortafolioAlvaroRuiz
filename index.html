@@ -1041,7 +1041,7 @@
              data-fotos='["Portafolio_Imagenes/Render_Geo-Vivo_png.png","Portafolio_Imagenes/GeoVivo2_png.png","Portafolio_Imagenes/GeoVivo3_png.png","Portafolio_Imagenes/GeoVivo4_png.png","Portafolio_Imagenes/GeoVivo5_png.png","Portafolio_Imagenes/GeoVivo6_png.png"]'>
           <div class="proyecto-encabezado">
             <h3>Geo-Vivo</h3>
-            <button type="button" class="ver-proyecto" data-en="View project">Ver proyecto</button>
+            <button type="button" class="ver-proyecto" data-enlace="Auratan.html" data-en="View project">Ver proyecto</button>
           </div>
           <img class="imagen-proyecto" src="Portafolio_Imagenes/Render_Geo-Vivo_png.png" alt="Render Geo-Vivo">
           <p data-en="Render of the Geo-Vivo being, designed for a VR Experience in Auratán. Based on soft architecture, this being comes to life through AlbedoX">Render de Ser Geo-Vivo diseñado para una Experiencia VR en Auratán. Basado en arquitectura blanda, este ser, cobra vida a base de AlbedoX </p>
@@ -1272,7 +1272,12 @@
         return;
       }
 
-      tarjeta.querySelector('.ver-proyecto').addEventListener('click', () => {
+      tarjeta.querySelector('.ver-proyecto').addEventListener('click', (evento) => {
+        const destino = evento.currentTarget.dataset.enlace;
+        if (destino) {
+          window.location.href = destino;
+          return;
+        }
         abrirGaleria(fotosProyecto);
       });
     });
