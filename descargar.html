@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Carta de presentación - Álvaro Ruiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Saira:wght@100..900&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #101215;
+    color: #e8eaed;
+    font-family: 'Saira', sans-serif;
+    text-align: center;
+  }
+
+  main {
+    width: min(92vw, 420px);
+    padding: 32px 0;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-family: 'Merienda', cursive;
+    font-size: 1.9rem;
+  }
+
+  p {
+    margin: 0 0 22px;
+    color: #9aa0a6;
+  }
+
+  .boton {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #9cc2d6;
+    color: #101215;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+
+  .boton:hover {
+    background: #fff;
+  }
+
+  .vista {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 26px 0;
+    border-radius: 10px;
+  }
+
+  .volver {
+    color: #9cc2d6;
+  }
+</style>
+</head>
+<body>
+
+  <main>
+    <h1>Álvaro Ruiz</h1>
+    <p>Tu descarga está comenzando. Si no se inicia sola, presiona el botón.</p>
+
+    <a class="boton" id="descarga" href="Portafolio_Imagenes/PortafolioDescargable_png.png" download="Portafolio_Alvaro_Ruiz.png">Descargar carta de presentación</a>
+
+    <img class="vista" src="Portafolio_Imagenes/PortafolioDescargable_png.png" alt="Carta de presentación digital de Álvaro Ruiz">
+
+    <a class="volver" href="index.html">Ir al portafolio</a>
+  </main>
+
+  <script>
+    setTimeout(() => document.getElementById('descarga').click(), 600);
+  </script>
+
+</body>
+</html>
